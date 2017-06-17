@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RecruitmentAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmployeeSurname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Interview">
+          <Key>
+            <PropertyRef Name="InterviewID" />
+          </Key>
+          <Property Name="InterviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="InterviewDate" Type="datetime" Nullable="false" />
+          <Property Name="SessionID" Type="int" />
+          <Property Name="Room" Type="varchar" MaxLength="255" />
+          <Property Name="OverallComment" Type="varchar(max)" />
+          <Property Name="OverallScore" Type="decimal" Precision="2" Scale="2" />
+        </EntityType>
+        <EntityType Name="InterviewSession">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionDescription" Type="varchar" MaxLength="255" />
+          <Property Name="SessionName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PanelMember">
+          <Key>
+            <PropertyRef Name="PanelID" />
+          </Key>
+          <Property Name="PanelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="InterviewID" Type="int" Nullable="false" />
+          <Property Name="PannelScore" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentSurname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentDOB" Type="datetime" Nullable="false" />
+          <Property Name="StudentUniversity" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentDegree" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentYearofStudy" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentPhoto" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentBio" Type="varchar(max)" Nullable="false" />
+          <Property Name="StudentVideo" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TraitCategory">
+          <Key>
+            <PropertyRef Name="TraitID" />
+          </Key>
+          <Property Name="TraitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TraitName" Type="varchar" MaxLength="255" />
+          <Property Name="TraitDescription" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TraitComment">
+          <Key>
+            <PropertyRef Name="TraitCommentID" />
+          </Key>
+          <Property Name="TraitCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PanelID" Type="int" Nullable="false" />
+          <Property Name="TraitID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="varchar(max)" />
+          <Property Name="Score" Type="int" />
+        </EntityType>
+        <Association Name="FK_Interview_InterviewSession">
+          <End Role="InterviewSession" Type="Self.InterviewSession" Multiplicity="0..1" />
+          <End Role="Interview" Type="Self.Interview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InterviewSession">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Interview">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Interview" Type="Self.Interview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Interview">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Panel_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="PanelMember">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Panel_Interview">
+          <End Role="Interview" Type="Self.Interview" Multiplicity="1" />
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interview">
+              <PropertyRef Name="InterviewID" />
+            </Principal>
+            <Dependent Role="PanelMember">
+              <PropertyRef Name="InterviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitComment_PanelMember">
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="1" />
+          <End Role="TraitComment" Type="Self.TraitComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PanelMember">
+              <PropertyRef Name="PanelID" />
+            </Principal>
+            <Dependent Role="TraitComment">
+              <PropertyRef Name="PanelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitComment_TraitCategory">
+          <End Role="TraitCategory" Type="Self.TraitCategory" Multiplicity="1" />
+          <End Role="TraitComment" Type="Self.TraitComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TraitCategory">
+              <PropertyRef Name="TraitID" />
+            </Principal>
+            <Dependent Role="TraitComment">
+              <PropertyRef Name="TraitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecruitmentAppModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interview" EntityType="Self.Interview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewSession" EntityType="Self.InterviewSession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PanelMember" EntityType="Self.PanelMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraitCategory" EntityType="Self.TraitCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraitComment" EntityType="Self.TraitComment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Interview_InterviewSession" Association="Self.FK_Interview_InterviewSession">
+            <End Role="InterviewSession" EntitySet="InterviewSession" />
+            <End Role="Interview" EntitySet="Interview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_Student" Association="Self.FK_Interview_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Interview" EntitySet="Interview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Panel_Employee" Association="Self.FK_Panel_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PanelMember" EntitySet="PanelMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Panel_Interview" Association="Self.FK_Panel_Interview">
+            <End Role="Interview" EntitySet="Interview" />
+            <End Role="PanelMember" EntitySet="PanelMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitComment_PanelMember" Association="Self.FK_TraitComment_PanelMember">
+            <End Role="PanelMember" EntitySet="PanelMember" />
+            <End Role="TraitComment" EntitySet="TraitComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitComment_TraitCategory" Association="Self.FK_TraitComment_TraitCategory">
+            <End Role="TraitCategory" EntitySet="TraitCategory" />
+            <End Role="TraitComment" EntitySet="TraitComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RecruitmentAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Employee" FromRole="Employee" ToRole="PanelMember" />
+        </EntityType>
+        <EntityType Name="Interview">
+          <Key>
+            <PropertyRef Name="InterviewID" />
+          </Key>
+          <Property Name="InterviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="InterviewDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionID" Type="Int32" />
+          <Property Name="Room" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OverallComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OverallScore" Type="Decimal" Precision="2" Scale="2" />
+          <NavigationProperty Name="InterviewSession" Relationship="Self.FK_Interview_InterviewSession" FromRole="Interview" ToRole="InterviewSession" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Interview_Student" FromRole="Interview" ToRole="Student" />
+          <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Interview" FromRole="Interview" ToRole="PanelMember" />
+        </EntityType>
+        <EntityType Name="InterviewSession">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SessionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Interviews" Relationship="Self.FK_Interview_InterviewSession" FromRole="InterviewSession" ToRole="Interview" />
+        </EntityType>
+        <EntityType Name="PanelMember">
+          <Key>
+            <PropertyRef Name="PanelID" />
+          </Key>
+          <Property Name="PanelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="InterviewID" Type="Int32" Nullable="false" />
+          <Property Name="PannelScore" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Panel_Employee" FromRole="PanelMember" ToRole="Employee" />
+          <NavigationProperty Name="Interview" Relationship="Self.FK_Panel_Interview" FromRole="PanelMember" ToRole="Interview" />
+          <NavigationProperty Name="TraitComments" Relationship="Self.FK_TraitComment_PanelMember" FromRole="PanelMember" ToRole="TraitComment" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentDOB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StudentUniversity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentDegree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentYearofStudy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentPhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentBio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Interviews" Relationship="Self.FK_Interview_Student" FromRole="Student" ToRole="Interview" />
+          <Property Name="StudentVideo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TraitCategory">
+          <Key>
+            <PropertyRef Name="TraitID" />
+          </Key>
+          <Property Name="TraitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TraitName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TraitDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TraitComments" Relationship="Self.FK_TraitComment_TraitCategory" FromRole="TraitCategory" ToRole="TraitComment" />
+        </EntityType>
+        <EntityType Name="TraitComment">
+          <Key>
+            <PropertyRef Name="TraitCommentID" />
+          </Key>
+          <Property Name="TraitCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PanelID" Type="Int32" Nullable="false" />
+          <Property Name="TraitID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Score" Type="Int32" />
+          <NavigationProperty Name="PanelMember" Relationship="Self.FK_TraitComment_PanelMember" FromRole="TraitComment" ToRole="PanelMember" />
+          <NavigationProperty Name="TraitCategory" Relationship="Self.FK_TraitComment_TraitCategory" FromRole="TraitComment" ToRole="TraitCategory" />
+        </EntityType>
+        <Association Name="FK_Panel_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="PanelMember">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_InterviewSession">
+          <End Role="InterviewSession" Type="Self.InterviewSession" Multiplicity="0..1" />
+          <End Role="Interview" Type="Self.Interview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InterviewSession">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Interview">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Interview" Type="Self.Interview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Interview">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Panel_Interview">
+          <End Role="Interview" Type="Self.Interview" Multiplicity="1" />
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interview">
+              <PropertyRef Name="InterviewID" />
+            </Principal>
+            <Dependent Role="PanelMember">
+              <PropertyRef Name="InterviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitComment_PanelMember">
+          <End Role="PanelMember" Type="Self.PanelMember" Multiplicity="1" />
+          <End Role="TraitComment" Type="Self.TraitComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PanelMember">
+              <PropertyRef Name="PanelID" />
+            </Principal>
+            <Dependent Role="TraitComment">
+              <PropertyRef Name="PanelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitComment_TraitCategory">
+          <End Role="TraitCategory" Type="Self.TraitCategory" Multiplicity="1" />
+          <End Role="TraitComment" Type="Self.TraitComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TraitCategory">
+              <PropertyRef Name="TraitID" />
+            </Principal>
+            <Dependent Role="TraitComment">
+              <PropertyRef Name="TraitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecruitmentAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Interviews" EntityType="Self.Interview" />
+          <EntitySet Name="InterviewSessions" EntityType="Self.InterviewSession" />
+          <EntitySet Name="PanelMembers" EntityType="Self.PanelMember" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TraitCategories" EntityType="Self.TraitCategory" />
+          <EntitySet Name="TraitComments" EntityType="Self.TraitComment" />
+          <AssociationSet Name="FK_Panel_Employee" Association="Self.FK_Panel_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="PanelMember" EntitySet="PanelMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_InterviewSession" Association="Self.FK_Interview_InterviewSession">
+            <End Role="InterviewSession" EntitySet="InterviewSessions" />
+            <End Role="Interview" EntitySet="Interviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_Student" Association="Self.FK_Interview_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Interview" EntitySet="Interviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Panel_Interview" Association="Self.FK_Panel_Interview">
+            <End Role="Interview" EntitySet="Interviews" />
+            <End Role="PanelMember" EntitySet="PanelMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitComment_PanelMember" Association="Self.FK_TraitComment_PanelMember">
+            <End Role="PanelMember" EntitySet="PanelMembers" />
+            <End Role="TraitComment" EntitySet="TraitComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitComment_TraitCategory" Association="Self.FK_TraitComment_TraitCategory">
+            <End Role="TraitCategory" EntitySet="TraitCategories" />
+            <End Role="TraitComment" EntitySet="TraitComments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RecruitmentAppModelStoreContainer" CdmEntityContainer="RecruitmentAppEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeSurname" ColumnName="EmployeeSurname" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interviews">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.Interview">
+              <MappingFragment StoreEntitySet="Interview">
+                <ScalarProperty Name="InterviewID" ColumnName="InterviewID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="OverallComment" ColumnName="OverallComment" />
+                <ScalarProperty Name="OverallScore" ColumnName="OverallScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewSessions">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.InterviewSession">
+              <MappingFragment StoreEntitySet="InterviewSession">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="SessionDescription" ColumnName="SessionDescription" />
+                <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PanelMembers">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.PanelMember">
+              <MappingFragment StoreEntitySet="PanelMember">
+                <ScalarProperty Name="PanelID" ColumnName="PanelID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="InterviewID" ColumnName="InterviewID" />
+                <ScalarProperty Name="PannelScore" ColumnName="PannelScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentVideo" ColumnName="StudentVideo" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentSurname" ColumnName="StudentSurname" />
+                <ScalarProperty Name="StudentDOB" ColumnName="StudentDOB" />
+                <ScalarProperty Name="StudentUniversity" ColumnName="StudentUniversity" />
+                <ScalarProperty Name="StudentDegree" ColumnName="StudentDegree" />
+                <ScalarProperty Name="StudentYearofStudy" ColumnName="StudentYearofStudy" />
+                <ScalarProperty Name="StudentPhoto" ColumnName="StudentPhoto" />
+                <ScalarProperty Name="StudentBio" ColumnName="StudentBio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraitCategories">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.TraitCategory">
+              <MappingFragment StoreEntitySet="TraitCategory">
+                <ScalarProperty Name="TraitID" ColumnName="TraitID" />
+                <ScalarProperty Name="TraitName" ColumnName="TraitName" />
+                <ScalarProperty Name="TraitDescription" ColumnName="TraitDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraitComments">
+            <EntityTypeMapping TypeName="RecruitmentAppModel.TraitComment">
+              <MappingFragment StoreEntitySet="TraitComment">
+                <ScalarProperty Name="TraitCommentID" ColumnName="TraitCommentID" />
+                <ScalarProperty Name="PanelID" ColumnName="PanelID" />
+                <ScalarProperty Name="TraitID" ColumnName="TraitID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

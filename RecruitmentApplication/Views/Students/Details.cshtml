@@ -1,0 +1,91 @@
+﻿@model RecruitmentApplication.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentDOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentDOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentUniversity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentUniversity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentDegree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentDegree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentYearofStudy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentYearofStudy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentPhoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentPhoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentBio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentBio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentVideo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentVideo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

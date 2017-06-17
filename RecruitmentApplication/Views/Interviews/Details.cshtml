@@ -1,0 +1,67 @@
+﻿@model RecruitmentApplication.Models.Interview
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Interview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OverallComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverallComment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OverallScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverallScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewSession.SessionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewSession.SessionDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.StudentName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InterviewID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
