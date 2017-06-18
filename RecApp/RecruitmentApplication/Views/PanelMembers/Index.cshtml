@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RecruitmentApplication.Models.PanelMember>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PannelScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Interview.Room)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PannelScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Interview.Room)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PanelID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PanelID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PanelID })
+        </td>
+    </tr>
+}
+
+</table>
