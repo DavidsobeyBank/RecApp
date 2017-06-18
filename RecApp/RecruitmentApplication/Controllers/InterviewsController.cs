@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RecruitmentApplication.Models;
+using System.Web.UI.WebControls;
+using RecruitmentApplication.ViewModels;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -36,12 +38,21 @@ namespace RecruitmentApplication.Controllers
             return View(interview);
         }
 
+        public ActionResult StartInterview(int? id)
+        {
+            Interview interview = db.Interviews.Find(id);
+
+            return View(interview);
+        }
         // GET: Interviews/Create
         public ActionResult Create()
         {
-            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription");
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "StudentName");
-            return View();
+            CreateInterviewVM model = new CreateInterviewVM();
+
+            model.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName");
+            model.students = new SelectList(db.Students, "StudentID", "StudentName");
+
+            return View(model);
         }
 
         // POST: Interviews/Create
@@ -49,18 +60,28 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InterviewID,StudentID,InterviewDate,SessionID,Room,OverallComment,OverallScore")] Interview interview)
+        public ActionResult Create(CreateInterviewVM model)
         {
+            Interview interview = new Interview();
+
             if (ModelState.IsValid)
             {
+                string student = model.studentID;
+                string session = model.sessionID;
+
+                interview.StudentID = Convert.ToInt32(student);
+                interview.SessionID = Convert.ToInt32(session);
+                interview.InterviewDate = model.interviewDate;
+                interview.Room = model.roomNumber;
+
                 db.Interviews.Add(interview);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.students = new SelectList(db.Students, "StudentID", "StudentName", model.studentID);
+            ViewBag.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName", model.sessionID);
 
-            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription", interview.SessionID);
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "StudentName", interview.StudentID);
-            return View(interview);
+            return View(model);
         }
 
         // GET: Interviews/Edit/5
@@ -93,8 +114,7 @@ namespace RecruitmentApplication.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription", interview.SessionID);
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "StudentName", interview.StudentID);
+
             return View(interview);
         }
 
