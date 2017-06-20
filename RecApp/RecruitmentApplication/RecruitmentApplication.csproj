@@ -234,6 +234,7 @@
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\materialdesignicons.min.css" />
     <Content Include="fonts\materialdesignicons-webfont.svg" />
+    <Content Include="Img\Lloyd.jpg" />
     <Content Include="Scripts\material.js" />
     <Content Include="css\material.min.css" />
     <Content Include="Scripts\material.min.js" />
@@ -352,6 +353,7 @@
     <Content Include="scss\_icons.scss" />
     <Content Include="scss\_path.scss" />
     <Content Include="scss\_variables.scss" />
+    <Content Include="Views\Interviews\StartInterview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
