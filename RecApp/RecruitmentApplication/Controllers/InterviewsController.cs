@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using RecruitmentApplication.Models;
 using System.Web.UI.WebControls;
 using RecruitmentApplication.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -38,11 +39,60 @@ namespace RecruitmentApplication.Controllers
             return View(interview);
         }
 
+        [HttpGet]
         public ActionResult StartInterview(int? id)
         {
+            StartInterviewVM startInterviewVM = new StartInterviewVM();
             Interview interview = db.Interviews.Find(id);
+            String dateOfBirth;
+            String bio;
+            if (interview != null)
+            {
+                //make a new startInterviewVM intance and assign to it
+                startInterviewVM.interview = interview; 
+                startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio); 
+                startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
+                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName");
 
-            return View(interview);
+            }
+
+            return View(startInterviewVM);  
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StartInterview(StartInterviewVM model)
+        {
+            
+            //want to rather grab these all in one go but I am not god. 
+            string employeeOne = model.employeeIDOne;
+            string employeeTwo = model.employeeIDTwo;
+            string employeeThree = model.employeeIDThree;
+
+            string[] employeeStringIds = { employeeOne, employeeTwo, employeeThree };
+            int[] employeeIds = Array.ConvertAll(employeeStringIds, int.Parse);
+
+            //assign interview to panel members
+            PanelMembersController panelMembersController = new PanelMembersController();
+            Interview interview = new Interview();
+            interview = model.interview;
+
+            //create a panel member for each employee selected
+            model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
+
+            foreach(PanelMember p in model.panel)
+            {
+                interview.PanelMembers.Add(p);
+            }
+            //update interview status
+
+            //save the updated interview
+            db.SaveChanges();
+            //open trait category modal
+
+            //enable trait scoring and comments
+
+            return View(model); 
         }
         // GET: Interviews/Create
         public ActionResult Create()

@@ -21,6 +21,42 @@ namespace RecruitmentApplication.Controllers
             return View(panelMembers.ToList());
         }
 
+        public List<PanelMember> AssignInterview(int interviewId, int[] employeeIds)
+        {
+            List<PanelMember> panel = new List<PanelMember>();
+            try
+            {
+                //check if the interview actually exists
+                Interview interview = db.Interviews.FirstOrDefault(i => i.InterviewID == interviewId);
+                if (interview != null)
+                {
+                    foreach (int id in employeeIds)
+                    {
+                        //get employee details
+                        Employee emp = db.Employees.FirstOrDefault(p => p.EmployeeID == id);
+                        if (emp != null)
+                        {
+                            //create new panel members from employee and interview details
+                            PanelMember panelMember = new PanelMember();
+                            panelMember.EmployeeID = emp.EmployeeID;
+                            panelMember.InterviewID = interview.InterviewID;
+
+                            db.PanelMembers.Add(panelMember);
+                            panel.Add(panelMember);
+                        }
+                    }
+                }
+                
+            }
+            catch(ArgumentNullException ex)
+            {
+                Console.WriteLine("Aw shucks, we couldn't add all the interview to all the panel members " + ex.Message);
+            }
+
+            return panel; 
+
+
+        }
         // GET: PanelMembers/Details/5
         public ActionResult Details(int? id)
         {

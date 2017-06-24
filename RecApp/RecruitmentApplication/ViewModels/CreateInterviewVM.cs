@@ -10,12 +10,10 @@ namespace RecruitmentApplication.ViewModels
 {
     public class CreateInterviewVM
     {
+        #region Display properties
+
         [Display(Name = "Student")]
         public IEnumerable<SelectListItem> students;
-
-        public string studentID { get; set; }
-
-        public string sessionID { get; set; }
 
         [Display(Name = "Date")]
         [Required(ErrorMessage = "Please select a date")]
@@ -27,5 +25,13 @@ namespace RecruitmentApplication.ViewModels
 
         [Display(Name = "Session")]
         public IEnumerable<SelectListItem> sessions;
+
+        #endregion
+
+        public string studentID { get; set; }
+
+        public string sessionID { get; set; }
+
+
     }
 }
