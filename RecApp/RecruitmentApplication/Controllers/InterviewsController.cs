@@ -44,16 +44,15 @@ namespace RecruitmentApplication.Controllers
         {
             StartInterviewVM startInterviewVM = new StartInterviewVM();
             Interview interview = db.Interviews.Find(id);
-            String dateOfBirth;
-            String bio;
             if (interview != null)
             {
                 //make a new startInterviewVM intance and assign to it
-                startInterviewVM.interview = interview; 
+                startInterviewVM.interview = interview;
+                startInterviewVM.Student = interview.Student;
+                startInterviewVM.session = interview.InterviewSession;
                 startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio); 
                 startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
-                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName");
-
+                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName"); 
             }
 
             return View(startInterviewVM);  
@@ -63,14 +62,13 @@ namespace RecruitmentApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
         {
-            
-            //want to rather grab these all in one go but I am not god. 
-            string employeeOne = model.employeeIDOne;
-            string employeeTwo = model.employeeIDTwo;
-            string employeeThree = model.employeeIDThree;
 
-            string[] employeeStringIds = { employeeOne, employeeTwo, employeeThree };
-            int[] employeeIds = Array.ConvertAll(employeeStringIds, int.Parse);
+            if(model.selectedEmployeeIDs.Count() > 0)
+            {
+                return View(model);
+            }
+            List<int> employeeIds = new List<int>();
+            employeeIds = model.selectedEmployeeIDs; 
 
             //assign interview to panel members
             PanelMembersController panelMembersController = new PanelMembersController();

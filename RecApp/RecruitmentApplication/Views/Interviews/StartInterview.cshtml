@@ -1,4 +1,4 @@
-﻿@model RecruitmentApplication.Models.Interview
+﻿@model RecruitmentApplication.ViewModels.StartInterviewVM
 
 @{
     ViewBag.Title = "View";
@@ -33,18 +33,13 @@
         </div>
         <div class="">
             <div class="mdl-card__actions">
-                <h4 class="mdl-card__subtitle-text">Choose panel members</h4>
-                <div>
-                    Panel Member One
-                <div>
-                    Panel Member Two
-                </div>
-                <div>
-                    Panel Member Three
+                <h4 class="mdl-card__subtitle-text">Choose Panel Members</h4>
+                <div >
+                    @Html.ListBoxFor(model => model.selectedEmployeeIDs, Model.panelMembers, new { htmlAttributes = new { @class = "form-control"} })
                 </div>
             </div>
             <div>
-               <input type="submit" value="Start" class="mdl-button--colored" onclick="location.href='@Html.ActionLink("Start", "StartInterview", "Interviews")'" />
+               <input type="submit" value="Start" class="mdl-button--colored" onclick="location.href=@Html.ActionLink("","StartInterview", "Interviews")" />
             </div>
         </div>
     </div>
@@ -59,10 +54,8 @@
             <strong>Name: </strong>
             @Html.DisplayFor(model => model.Student.StudentName)
              @Html.DisplayFor(model => model.Student.StudentSurname)<br>
-            @*<strong>Date of Birth:</strong>
-             @Html.Raw(Model.Student.StudentDOB.ToString("D"))<br />*@
-            <strong>Date of Birth:</strong>
-            @Html.Raw(@ViewBag.dob)<br>
+           <strong>Date of Birth:</strong>
+             @Html.DisplayFor(model => model.dateOfBirth)<br/>
             <strong>Degree:</strong>
              @Html.DisplayFor(model => model.Student.StudentDegree)<br>
             <strong>University:</strong>
@@ -70,7 +63,7 @@
             <strong>Year of Studies:</strong>
              @Html.DisplayFor(model => model.Student.StudentYearofStudy)<br>
             <strong>Student Bio:</strong> <br>
-            @Html.Raw(@ViewBag.bio)<br>
+            @Html.DisplayFor(model => model.Student.StudentBio)<br>
         </div>
     </div>
 </div>

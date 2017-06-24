@@ -21,7 +21,7 @@ namespace RecruitmentApplication.Controllers
             return View(panelMembers.ToList());
         }
 
-        public List<PanelMember> AssignInterview(int interviewId, int[] employeeIds)
+        public List<PanelMember> AssignInterview(int interviewId, List<int> employeeIds)
         {
             List<PanelMember> panel = new List<PanelMember>();
             try

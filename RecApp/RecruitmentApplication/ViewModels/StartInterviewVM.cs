@@ -31,13 +31,9 @@ namespace RecruitmentApplication.ViewModels
         #endregion
 
         #region Objects
-        public string employeeIDOne { get; set; }
+        public List<int> selectedEmployeeIDs { get; set; }
 
-        public string employeeIDTwo { get; set; }
-
-        public string employeeIDThree { get; set; }
-
-        public Student student { get; set; }
+        public Student Student { get; set; }
 
         public InterviewSession session { get; set; }
 
