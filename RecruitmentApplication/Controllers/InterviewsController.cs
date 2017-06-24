@@ -73,6 +73,8 @@ namespace RecruitmentApplication.Controllers
                 interview.SessionID = Convert.ToInt32(session);
                 interview.InterviewDate = model.interviewDate;
                 interview.Room = model.roomNumber;
+                interview.OverallComment = "Interview not yet started";
+                
 
                 db.Interviews.Add(interview);
                 db.SaveChanges();
