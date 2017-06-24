@@ -1,0 +1,214 @@
+﻿.bluebank {
+    background: #1F77D0;
+    background: -moz-linear-gradient(top, #1F77D0 80%, #533ce1 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #1F77D0), color-stop(100%, #533ce1));
+    background: -webkit-linear-gradient(top, #1F77D0 80%, #533ce1 100%);
+    background: -o-linear-gradient(top, #1F77D0 80%, #533ce1 100%);
+    background: -ms-linear-gradient(top, #1F77D0 80%, #533ce1 100%);
+    background: linear-gradient(to right, #1F77D0 0%, #46d3ff 100%);
+    background-size: 150% 150%;
+}
+
+html, body {
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.demo-avatar {
+    width: 48px;
+}
+
+.mdl-layout__drawer .avatar {
+    margin-bottom: 16px;
+}
+
+.demo-drawer {
+    border: none;
+}
+    /* iOS Safari specific workaround */
+    .demo-drawer .mdl-menu__container {
+        z-index: -1;
+    }
+
+    .demo-drawer .demo-navigation {
+        z-index: -2;
+    }
+    /* END iOS Safari specific workaround */
+    .demo-drawer .mdl-menu .mdl-menu__item {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+.demo-drawer-header {
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.demo-avatar-dropdown {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.demo-navigation {
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.demo-layout .demo-navigation .mdl-navigation__link {
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: 500;
+    color: black;
+}
+.demo-navigation .mdl-navigation__link .material-icons {
+    font-size: 24px;
+    margin-right: 32px;
+}
+
+.demo-content {
+    max-width: 1080px;
+}
+
+.demo-charts {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.demo-cards {
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+}
+
+    .demo-cards .demo-separator {
+        height: 32px;
+    }
+
+    .demo-cards .mdl-card__title.mdl-card__title {
+        font-size: 24px;
+        font-weight: 400;
+    }
+
+    .demo-cards ul {
+        padding: 0;
+    }
+
+    .demo-cards h3 {
+        font-size: 1em;
+    }
+
+.demo-updates .mdl-card__title {
+    min-height: 200px;
+    background-image: url('images/dog.png');
+    background-position: 90% 100%;
+    background-repeat: no-repeat;
+}
+
+.demo-options h3 {
+    margin: 0;
+}
+
+.demo-options ul {
+    margin: 0;
+    list-style-type: none;
+}
+
+.demo-options li {
+    margin: 4px 0;
+}
+
+.demo-options .mdl-card__actions {
+    height: 64px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    box-sizing: border-box;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.inline{
+    display:inline;
+}
+
+.pad{
+    padding:20px 50px;
+}
+.material-icons {
+    color:black!important;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+    background-color: #F7F7F7;
+}
+
+.demo-card-square.mdl-card {
+    width: 330px;
+    height: 320px;
+    float: left;
+    margin: 1rem;
+    position: relative;
+}
+
+.demo-card-large.mdl-card {
+    width: 100%;
+    float: left;
+    margin: 1rem;
+    position: relative;
+}
+.demo-card-image {
+    width: 220px;
+    height: 200px;
+}
+.img {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
+h5, h6 {
+    margin: 0px;
+    color:white;
+}
+
+.mdl-layout__drawer .mdl-navigation {
+    padding-top: 0px;
+}
+.demo-drawer-header {
+    padding: 5px;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+    padding: 10px 15px;
+}
