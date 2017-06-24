@@ -10,6 +10,7 @@ using RecruitmentApplication.Models;
 using System.Web.UI.WebControls;
 using RecruitmentApplication.ViewModels;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -44,15 +45,19 @@ namespace RecruitmentApplication.Controllers
         {
             StartInterviewVM startInterviewVM = new StartInterviewVM();
             Interview interview = db.Interviews.Find(id);
+            
             if (interview != null)
             {
+                Session["currentInterview"] = interview.InterviewID.ToString();
                 //make a new startInterviewVM intance and assign to it
                 startInterviewVM.interview = interview;
                 startInterviewVM.Student = interview.Student;
                 startInterviewVM.session = interview.InterviewSession;
                 startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio); 
                 startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
-                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName"); 
+
+                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", startInterviewVM.selectedEmployeeIDs);
+                
             }
 
             return View(startInterviewVM);  
@@ -62,35 +67,47 @@ namespace RecruitmentApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
         {
-
-            if(model.selectedEmployeeIDs.Count() > 0)
+            try
             {
-                return View(model);
+                if (model.selectedEmployeeIDs.Count() == 0)
+                {
+                    return View(model);
+                }
+
+                List<int> employeeIds = new List<int>();
+                employeeIds = model.selectedEmployeeIDs;
+
+                //assign interview to panel members
+                PanelMembersController panelMembersController = new PanelMembersController();
+                String interviewId = Session["currentInterview"].ToString();
+                
+                if (!string.IsNullOrEmpty(interviewId))
+                {
+                    int idVal = Convert.ToInt32(interviewId);
+                    Interview interview = db.Interviews.Find(idVal);
+
+                    //create a panel member for each employee selected
+                    model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
+
+                    foreach (PanelMember p in model.panel)
+                    {
+                        interview.PanelMembers.Add(p);
+                    }
+                    //update interview status
+
+                    //save the updated interview //have to change multiplicity of FK_panel_interview to allow many panel members
+                    db.SaveChanges();
+                    //open trait category modal
+
+                    //enable trait scoring and comments
+                }
             }
-            List<int> employeeIds = new List<int>();
-            employeeIds = model.selectedEmployeeIDs; 
-
-            //assign interview to panel members
-            PanelMembersController panelMembersController = new PanelMembersController();
-            Interview interview = new Interview();
-            interview = model.interview;
-
-            //create a panel member for each employee selected
-            model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
-
-            foreach(PanelMember p in model.panel)
+            catch(NullReferenceException ex)
             {
-                interview.PanelMembers.Add(p);
+                Console.WriteLine("Aw shuck we done messed up " + ex.Message);
             }
-            //update interview status
+            return View(model);
 
-            //save the updated interview
-            db.SaveChanges();
-            //open trait category modal
-
-            //enable trait scoring and comments
-
-            return View(model); 
         }
         // GET: Interviews/Create
         public ActionResult Create()

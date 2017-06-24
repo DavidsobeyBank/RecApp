@@ -14,7 +14,7 @@ namespace RecruitmentApplication.ViewModels
         #region Display Fields
 
         [Display(Name = "Panel Members")]
-        public IEnumerable<SelectListItem> panelMembers;
+        public IEnumerable<SelectListItem> panelMembers { get; set; }
 
         [Display(Name = "Bio")]
         public string bio { get; set; }
