@@ -88,6 +88,7 @@ html, body {
     font-weight: 500;
     color: black;
 }
+
 .demo-navigation .mdl-navigation__link .material-icons {
     font-size: 24px;
     margin-right: 32px;
@@ -159,15 +160,17 @@ html, body {
     -ms-flex-align: center;
     align-items: center;
 }
-.inline{
-    display:inline;
+
+.inline {
+    display: inline;
 }
 
-.pad{
-    padding:20px 50px;
+.pad {
+    padding: 20px 50px;
 }
+
 .material-icons {
-    color:black!important;
+    color: black !important;
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
@@ -188,27 +191,159 @@ html, body {
     margin: 1rem;
     position: relative;
 }
+
 .demo-card-image {
     width: 220px;
     height: 200px;
 }
+
 .img {
     display: block;
     margin: auto;
     width: 80%;
 }
+
 h5, h6 {
     margin: 0px;
-    color:white;
+    color: white;
 }
 
 .mdl-layout__drawer .mdl-navigation {
     padding-top: 0px;
 }
+
 .demo-drawer-header {
     padding: 5px;
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
     padding: 10px 15px;
+}
+
+@media only screen and (max-width: 580px) {
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    mdl specifics .mdl-data-table tbody tr {
+        height: auto;
+    }
+
+    .mdl-data-table tbody tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    .mdl-data-table td,
+    .mdl-data-table td:first-of-type {
+        padding-left: 50%;
+    }
+
+        .mdl-data-table td:before {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding: 6px 18px 0;
+            white-space: nowrap;
+            content: attr(data-label);
+            text-align: left;
+            color: rgba(0, 0, 0, 0.541176);
+            font-weight: bold;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .mdl-data-table td:last-of-type {
+            padding-right: 18px;
+        }
+
+    .mdl-data-table tbody tr {
+        height: auto;
+        border-top: 1px solid black;
+    }
+
+    .mdl-data-table tbody tr :last-child {
+        border-bottom: 1px solid black;
+    }
+
+    .noline {
+        border: none !important;
+    }
+}
+.mdl-layout__content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.loader,
+.loader:before,
+.loader:after {
+    background: #0080ff;
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    width: 1em;
+    height: 4em;
+}
+
+.loader {
+    color: #0080ff;
+    text-indent: -9999em;
+    margin: 88px auto;
+    position: absolute;
+    font-size: 11px;
+    left:50%;
+    top:30%;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+    .loader:before,
+    .loader:after {
+        position: absolute;
+        top: 0;
+        content: '';
+    }
+
+    .loader:before {
+        left: -1.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+    }
+
+    .loader:after {
+        left: 1.5em;
+    }
+
+@-webkit-keyframes load1 {
+    0%, 80%, 100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+
+@keyframes load1 {
+    0%, 80%, 100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+.left{
+    text-align:left !important;
 }

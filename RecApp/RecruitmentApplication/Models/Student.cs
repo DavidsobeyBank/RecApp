@@ -30,13 +30,7 @@ namespace RecruitmentApplication.Models
         public string StudentPhoto { get; set; }
         public string StudentBio { get; set; }
         public string StudentVideo { get; set; }
-
-        public string StudentBirth()
-        {
-            return StudentDOB.ToString("D");
-        }
-        
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Interview> Interviews { get; set; }
     }

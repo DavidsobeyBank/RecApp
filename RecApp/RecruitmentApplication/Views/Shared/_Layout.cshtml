@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Material Design Lite</title>
 
+
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/android-desktop.png">
@@ -29,17 +30,29 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css">
     <link rel="stylesheet" href="~/css/Site.css">
+    @*<script>
+        $('#page').hide();
+    </script>*@
+    <script>
+        $(window).on("load", function () {
+            $('.loader').fadeOut("slow");
+            $('#page').fadeIn("slow");
+        });
+    </script>
+
+    
 </head>
 <body>
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <div class="loader">Loading...</div>
+
+    <div style="display: none" id="page" class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         </header>
         <div class="demo-drawer mdl-layout__drawer bluebank">
             <header class="demo-drawer-header border inline">
-                <img src="~/Img/Logo.png" class="demo-avatar">
-                <div class="demo-avatar-dropdown inline">
-                    <h5 class="inline">Standard Bank</h5>
-                </div>
+                <a href="/Home">
+                    <img src="~/Img/Logo.png" class="demo-avatar">
+                </a>
             </header>
             <nav class="demo-navigation mdl-navigation">
                 <a class="mdl-navigation__link" href="~/Home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
@@ -52,6 +65,7 @@
             </nav>
         </div>
         <main class="mdl-layout__content mdl-color--grey-100">
+
             @RenderBody()
         </main>
     </div>
