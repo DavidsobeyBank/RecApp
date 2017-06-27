@@ -19,6 +19,8 @@
         <AssociationConnector Association="RecruitmentAppModel.FK_Panel_Interview" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentAppModel.FK_TraitComment_PanelMember" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentAppModel.FK_TraitComment_TraitCategory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecruitmentAppModel.InterviewStatu" Width="1.5" PointX="7.375" PointY="7.875" />
+        <AssociationConnector Association="RecruitmentAppModel.FK_Interview_InterviewStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

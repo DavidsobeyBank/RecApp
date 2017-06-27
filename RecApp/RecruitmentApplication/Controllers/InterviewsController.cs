@@ -50,64 +50,140 @@ namespace RecruitmentApplication.Controllers
             {
                 Session["currentInterview"] = interview.InterviewID.ToString();
                 //make a new startInterviewVM intance and assign to it
-                startInterviewVM.interview = interview;
-                startInterviewVM.Student = interview.Student;
-                startInterviewVM.session = interview.InterviewSession;
-                startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio); 
-                startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
-
-                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", startInterviewVM.selectedEmployeeIDs);
+                startInterviewVM = populateVM(startInterviewVM, interview);
                 
             }
 
             return View(startInterviewVM);  
         }
 
+        private StartInterviewVM populateVM(StartInterviewVM startInterviewVM, Interview interview)
+        {
+            try
+            {
+                startInterviewVM.interview = interview;
+                startInterviewVM.Student = interview.Student;
+                startInterviewVM.session = interview.InterviewSession;
+                startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio);
+                startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
+
+                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", startInterviewVM.selectedEmployeeIDs);
+
+                startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("messed up yo" + ex.Message);
+            }
+            return startInterviewVM; 
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
         {
             try
             {
-                if (model.selectedEmployeeIDs.Count() == 0)
+                if (model.startInterview)
                 {
-                    return View(model);
-                }
-
-                List<int> employeeIds = new List<int>();
-                employeeIds = model.selectedEmployeeIDs;
-
-                //assign interview to panel members
-                PanelMembersController panelMembersController = new PanelMembersController();
-                String interviewId = Session["currentInterview"].ToString();
-                
-                if (!string.IsNullOrEmpty(interviewId))
-                {
-                    int idVal = Convert.ToInt32(interviewId);
-                    Interview interview = db.Interviews.Find(idVal);
-
-                    //create a panel member for each employee selected
-                    model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
-
-                    foreach (PanelMember p in model.panel)
+                    if (model.selectedEmployeeIDs.Count() == 0)
                     {
-                        interview.PanelMembers.Add(p);
+                        return View(model);
                     }
-                    //update interview status
 
-                    //save the updated interview //have to change multiplicity of FK_panel_interview to allow many panel members
-                    db.SaveChanges();
-                    //open trait category modal
+                    List<int> employeeIds = new List<int>();
+                    employeeIds = model.selectedEmployeeIDs;
 
-                    //enable trait scoring and comments
+                    //assign interview to panel members
+                    PanelMembersController panelMembersController = new PanelMembersController();
+                    String interviewId = Session["currentInterview"].ToString();
+
+                    if (!string.IsNullOrEmpty(interviewId))
+                    {
+                        int idVal = Convert.ToInt32(interviewId);
+                        Interview interview = db.Interviews.Find(idVal);
+                        //create a panel member for each employee selected
+                        model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
+
+                        if(model.panel.Count() > 0)
+                        {
+                            //update interview status
+                            interview.StatusID = 2; //in progress
+                        }
+
+
+                        //save the updated interview //have to change multiplicity of FK_panel_interview to allow many panel members
+                        db.SaveChanges();
+
+                        populateVM(model, interview);
+                        ViewBag.Message = "Interview Started";
+                    }
                 }
+                else
+                {
+                    CompleteInterview(model);
+                }
+
+
             }
             catch(NullReferenceException ex)
             {
                 Console.WriteLine("Aw shuck we done messed up " + ex.Message);
             }
+
+
             return View(model);
 
+        }
+
+        [HttpPost]
+        public ActionResult CompleteInterview(StartInterviewVM model)
+        {
+            try
+            {
+                String interviewId = Session["currentInterview"].ToString();
+                if (!string.IsNullOrEmpty(interviewId))
+                {
+                    int idVal = Convert.ToInt32(interviewId);
+                    Interview interview = db.Interviews.Find(idVal);
+
+                    interview.OverallScore = model.overallScore;
+                    interview.OverallComment = model.overallComment;
+
+                    int categoryCount = 0;
+                    foreach (TraitCategory category in model.categories)
+                    {
+                        TraitComment comment = new TraitComment();
+                        PanelMember panel = new PanelMember();
+
+                        //get the panel by the interview ID
+                        panel = db.PanelMembers.FirstOrDefault(p => p.InterviewID == interview.InterviewID);
+
+                        if (panel != null)
+                        {
+                            comment.PanelID = panel.PanelID;
+
+                            //every comment and score is related to a trait category
+                            comment.TraitID = category.TraitID;
+                            comment.TraitCategory = category;
+
+                            //get the comment and score for this category
+                            comment.Comment = model.categoryComments.ElementAt(categoryCount);
+                            comment.Score = model.categoryScores.ElementAt(categoryCount);
+                        }
+                        categoryCount++;
+                    }
+
+                    interview.StatusID = 3; //completed
+
+                    db.SaveChanges(); 
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("We done messed up. " + ex.Message);
+            }
+
+            return View(model);
         }
         // GET: Interviews/Create
         public ActionResult Create()
@@ -140,7 +216,6 @@ namespace RecruitmentApplication.Controllers
                 interview.Room = model.roomNumber;
                 interview.OverallComment = "Interview not yet started";
                 
-
                 db.Interviews.Add(interview);
                 db.SaveChanges();
                 return RedirectToAction("Index");

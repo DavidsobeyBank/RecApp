@@ -28,9 +28,21 @@ namespace RecruitmentApplication.ViewModels
         [Display(Name = "Room")]
         public string roomNumber { get; set; }
 
+        [Display(Name = "Overall Score")]
+        public decimal overallScore { get; set; }
+
+        [Display(Name = "Overall Comment")]
+        public string overallComment { get; set; }
+
+        [Display(Name ="Start Interview")]
+        public bool startInterview { get; set; }
+
+
+
         #endregion
 
         #region Objects
+
         public List<int> selectedEmployeeIDs { get; set; }
 
         public Student Student { get; set; }
@@ -40,6 +52,18 @@ namespace RecruitmentApplication.ViewModels
         public Interview interview { get; set; }
 
         public List<PanelMember> panel { get; set; }
+
+        public string categoryComment { get; set; }
+
+        public int categoryScore { get; set; }
+
+        //scoring stuff
+
+        public List<int> categoryScores { get; set; }
+
+        public List<string> categoryComments { get; set; }
+
+        public List<TraitCategory> categories { get; set; }
 
         #endregion
 

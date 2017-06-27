@@ -23,7 +23,7 @@ namespace RecruitmentApplication.Models
         public int PanelID { get; set; }
         public int EmployeeID { get; set; }
         public int InterviewID { get; set; }
-        public Nullable<int> PannelScore { get; set; }
+        public int PannelScore { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Interview Interview { get; set; }

@@ -33,5 +33,6 @@ namespace RecruitmentApplication.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TraitCategory> TraitCategories { get; set; }
         public virtual DbSet<TraitComment> TraitComments { get; set; }
+        public virtual DbSet<InterviewStatu> InterviewStatus { get; set; }
     }
 }

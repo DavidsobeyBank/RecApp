@@ -14,6 +14,7 @@
     <EntitySetMapping Name="Interviews">
       <EntityTypeMapping TypeName="RecruitmentAppModel.Interview">
         <MappingFragment StoreEntitySet="Interview">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
           <ScalarProperty Name="InterviewID" ColumnName="InterviewID" />
           <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
@@ -87,6 +88,14 @@
           <ScalarProperty Name="TraitID" ColumnName="TraitID" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InterviewStatus">
+      <EntityTypeMapping TypeName="RecruitmentAppModel.InterviewStatu">
+        <MappingFragment StoreEntitySet="InterviewStatus">
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

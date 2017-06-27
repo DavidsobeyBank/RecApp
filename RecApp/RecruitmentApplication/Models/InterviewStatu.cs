@@ -12,24 +12,16 @@ namespace RecruitmentApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class InterviewStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
+        public InterviewStatu()
         {
             this.Interviews = new HashSet<Interview>();
         }
     
-        public int StudentID { get; set; }
-        public string StudentName { get; set; }
-        public string StudentSurname { get; set; }
-        public System.DateTime StudentDOB { get; set; }
-        public string StudentUniversity { get; set; }
-        public string StudentDegree { get; set; }
-        public string StudentYearofStudy { get; set; }
-        public string StudentPhoto { get; set; }
-        public string StudentBio { get; set; }
-        public string StudentVideo { get; set; }
+        public int StatusID { get; set; }
+        public string StatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Interview> Interviews { get; set; }
