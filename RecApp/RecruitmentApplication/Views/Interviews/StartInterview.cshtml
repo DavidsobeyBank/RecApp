@@ -8,6 +8,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
 <div class="mdl-grid">
     <div class="mdl-card mdl-shadow--4dp demo-card-square">
         <div class="mdl-card__title mdl-shadow--2dp">
@@ -31,31 +32,31 @@
             </div>
         </div>
     </div>
-
-
+    <div class="mdl-card mdl-shadow--4dp demo-card-square">
+            <div class="mdl-card__title mdl-shadow--2dp">
+                <h2 class="mdl-card__title-text">Details</h2>
+            </div>
+            <div class="mdl-card__supporting-text ">
+                <strong>Name: </strong>
+                @Html.DisplayFor(model => model.Student.StudentName)
+                @Html.DisplayFor(model => model.Student.StudentSurname)<br>
+                <strong>Date of Birth:</strong>
+                @Html.DisplayFor(model => model.dateOfBirth)<br />
+                <strong>Degree:</strong>
+                @Html.DisplayFor(model => model.Student.StudentDegree)<br>
+                <strong>University:</strong>
+                @Html.DisplayFor(model => model.Student.StudentUniversity)
+                <strong>Year of Studies:</strong>
+                @Html.DisplayFor(model => model.Student.StudentYearofStudy)<br>
+                <strong>Student Bio:</strong> <br>
+                @Html.DisplayFor(model => model.Student.StudentBio)<br>
+            </div>
+    </div>
 </div>
+    if (ViewBag.Message == null)
+    {
 <div class="mdl-grid">
-<div class="mdl-card mdl-shadow--4dp demo-card-square">
-        <div class="mdl-card__title mdl-shadow--2dp">
-            <h2 class="mdl-card__title-text">Details</h2>
-        </div>
-        <div class="mdl-card__supporting-text ">
-            <strong>Name: </strong>
-            @Html.DisplayFor(model => model.Student.StudentName)
-            @Html.DisplayFor(model => model.Student.StudentSurname)<br>
-            <strong>Date of Birth:</strong>
-            @Html.DisplayFor(model => model.dateOfBirth)<br />
-            <strong>Degree:</strong>
-            @Html.DisplayFor(model => model.Student.StudentDegree)<br>
-            <strong>University:</strong>
-            @Html.DisplayFor(model => model.Student.StudentUniversity)
-            <strong>Year of Studies:</strong>
-            @Html.DisplayFor(model => model.Student.StudentYearofStudy)<br>
-            <strong>Student Bio:</strong> <br>
-            @Html.DisplayFor(model => model.Student.StudentBio)<br>
-        </div>
-</div>
-<div class="mdl-card mdl-shadow--4dp demo-card-square">
+<div class="mdl-card mdl-shadow--4dp demo-card-large" style="width:400px">
     <div class="mdl-card__title mdl-shadow--2dp">
         <h2 class="mdl-card__title-text">Select Panel Members</h2>
     </div>
@@ -63,7 +64,7 @@
         <div class="mdl-card__actions">
             <h4 class="mdl-card__subtitle-text">Hold Ctrl to select multiple employees</h4>
             <div>
-                @Html.ListBoxFor(model => model.selectedEmployeeIDs, Model.panelMembers, htmlAttributes: new { Multiple = "multiple", @Style = "Width:300px" })
+                @Html.ListBoxFor(model => model.selectedEmployeeIDs, Model.panelMembers, htmlAttributes: new { @Style = "Width:300px" })
             </div>
         </div>
         <div class="mdl-card__actions">
@@ -73,14 +74,15 @@
     </div>
 </div>
 </div>
+    }
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-@if (ViewBag.Message != null)
+if (ViewBag.Message != null)
 {
-<div class="mdl-grid">
+<div class="mdl-grid" name="#InterviewInProgress">
     @foreach (var category in Model.categories)
     {
 
@@ -112,7 +114,7 @@
         @Html.TextAreaFor(model => model.overallComment, 5, 30, new { htmlAttributes = new { @class = "form-control" } })
     </div>
     <div class="mdl-card__actions">
-        <input type="submit" name="startInterview" value="Complete" class="mdl-button mdl-button--raised mdl-button--colored" />
+        <input type="submit" name="completeInterview" value="Complete" class="mdl-button mdl-button--raised mdl-button--colored" />
     </div>
 </div>
     }

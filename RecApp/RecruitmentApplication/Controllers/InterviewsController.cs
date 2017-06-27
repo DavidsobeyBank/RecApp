@@ -83,8 +83,13 @@ namespace RecruitmentApplication.Controllers
         {
             try
             {
-                if (model.startInterview)
+                String interviewId = Session["currentInterview"].ToString();
+                int idVal = Convert.ToInt32(interviewId);
+                Interview interview = db.Interviews.Find(idVal);
+
+                if (interview.StatusID == 1)
                 {
+
                     if (model.selectedEmployeeIDs.Count() == 0)
                     {
                         return View(model);
@@ -95,34 +100,31 @@ namespace RecruitmentApplication.Controllers
 
                     //assign interview to panel members
                     PanelMembersController panelMembersController = new PanelMembersController();
-                    String interviewId = Session["currentInterview"].ToString();
+
 
                     if (!string.IsNullOrEmpty(interviewId))
                     {
-                        int idVal = Convert.ToInt32(interviewId);
-                        Interview interview = db.Interviews.Find(idVal);
+
                         //create a panel member for each employee selected
                         model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
 
-                        if(model.panel.Count() > 0)
+                        if (model.panel.Count() > 0)
                         {
                             //update interview status
                             interview.StatusID = 2; //in progress
                         }
-
-
                         //save the updated interview //have to change multiplicity of FK_panel_interview to allow many panel members
                         db.SaveChanges();
 
                         populateVM(model, interview);
                         ViewBag.Message = "Interview Started";
                     }
+
                 }
                 else
                 {
-                    CompleteInterview(model);
+                    CompleteInterview(populateVM(model, interview));
                 }
-
 
             }
             catch(NullReferenceException ex)

@@ -43,6 +43,7 @@ namespace RecruitmentApplication.Controllers
 
                             db.PanelMembers.Add(panelMember);
                             panel.Add(panelMember);
+                            db.SaveChanges(); 
                         }
                     }
                 }
