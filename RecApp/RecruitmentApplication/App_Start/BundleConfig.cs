@@ -22,6 +22,10 @@ namespace RecruitmentApplication
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            //bundles.Add(new StyleBundle("~/css/mdl").Include(
+            //         "~/css/material.css",
+            //         "~/css/material.min.css",
+            //         "~/css/materialdesignicons.css"));
         }
     }
 }

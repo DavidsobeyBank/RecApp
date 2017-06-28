@@ -30,7 +30,6 @@ namespace RecruitmentApplication.Models
         public virtual DbSet<InterviewSession> InterviewSessions { get; set; }
         public virtual DbSet<PanelMember> PanelMembers { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TraitCategory> TraitCategories { get; set; }
         public virtual DbSet<TraitComment> TraitComments { get; set; }
         public virtual DbSet<InterviewStatu> InterviewStatus { get; set; }

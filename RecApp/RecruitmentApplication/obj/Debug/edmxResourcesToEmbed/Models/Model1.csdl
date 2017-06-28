@@ -64,16 +64,6 @@
     <NavigationProperty Name="Interviews" Relationship="Self.FK_Interview_Student" FromRole="Student" ToRole="Interview" />
     <Property Name="StudentVideo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="TraitCategory">
     <Key>
       <PropertyRef Name="TraitID" />
@@ -173,7 +163,6 @@
     <EntitySet Name="InterviewSessions" EntityType="Self.InterviewSession" />
     <EntitySet Name="PanelMembers" EntityType="Self.PanelMember" />
     <EntitySet Name="Students" EntityType="Self.Student" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TraitCategories" EntityType="Self.TraitCategory" />
     <EntitySet Name="TraitComments" EntityType="Self.TraitComment" />
     <AssociationSet Name="FK_Panel_Employee" Association="Self.FK_Panel_Employee">
