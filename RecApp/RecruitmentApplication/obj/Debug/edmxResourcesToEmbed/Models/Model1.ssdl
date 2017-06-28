@@ -20,6 +20,7 @@
     <Property Name="Room" Type="varchar" MaxLength="255" />
     <Property Name="OverallComment" Type="varchar(max)" />
     <Property Name="OverallScore" Type="decimal" Precision="2" Scale="2" />
+    <Property Name="StatusID" Type="int" />
   </EntityType>
   <EntityType Name="InterviewSession">
     <Key>
@@ -29,6 +30,13 @@
     <Property Name="SessionDescription" Type="varchar" MaxLength="255" />
     <Property Name="SessionName" Type="varchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="InterviewStatus">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
   <EntityType Name="PanelMember">
     <Key>
       <PropertyRef Name="PanelID" />
@@ -36,7 +44,7 @@
     <Property Name="PanelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="InterviewID" Type="int" Nullable="false" />
-    <Property Name="PannelScore" Type="int" />
+    <Property Name="PannelScore" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -52,16 +60,6 @@
     <Property Name="StudentPhoto" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="StudentBio" Type="varchar(max)" Nullable="false" />
     <Property Name="StudentVideo" Type="varchar" MaxLength="255" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TraitCategory">
     <Key>
@@ -90,6 +88,18 @@
       </Principal>
       <Dependent Role="Interview">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interview_InterviewStatus">
+    <End Role="InterviewStatus" Type="Self.InterviewStatus" Multiplicity="0..1" />
+    <End Role="Interview" Type="Self.Interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InterviewStatus">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Interview">
+        <PropertyRef Name="StatusID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -157,13 +167,17 @@
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Interview" EntityType="Self.Interview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InterviewSession" EntityType="Self.InterviewSession" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InterviewStatus" EntityType="Self.InterviewStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PanelMember" EntityType="Self.PanelMember" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TraitCategory" EntityType="Self.TraitCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TraitComment" EntityType="Self.TraitComment" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Interview_InterviewSession" Association="Self.FK_Interview_InterviewSession">
       <End Role="InterviewSession" EntitySet="InterviewSession" />
+      <End Role="Interview" EntitySet="Interview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interview_InterviewStatus" Association="Self.FK_Interview_InterviewStatus">
+      <End Role="InterviewStatus" EntitySet="InterviewStatus" />
       <End Role="Interview" EntitySet="Interview" />
     </AssociationSet>
     <AssociationSet Name="FK_Interview_Student" Association="Self.FK_Interview_Student">

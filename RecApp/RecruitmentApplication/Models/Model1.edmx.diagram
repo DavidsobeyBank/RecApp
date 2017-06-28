@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="RecruitmentAppModel.InterviewSession" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentAppModel.PanelMember" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentAppModel.Student" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentAppModel.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentAppModel.TraitCategory" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentAppModel.TraitComment" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="RecruitmentAppModel.FK_Panel_Employee" ManuallyRouted="false" />
@@ -19,6 +18,8 @@
         <AssociationConnector Association="RecruitmentAppModel.FK_Panel_Interview" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentAppModel.FK_TraitComment_PanelMember" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentAppModel.FK_TraitComment_TraitCategory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecruitmentAppModel.InterviewStatu" Width="1.5" PointX="7.375" PointY="7.875" />
+        <AssociationConnector Association="RecruitmentAppModel.FK_Interview_InterviewStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

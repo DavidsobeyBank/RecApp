@@ -24,6 +24,8 @@
     <NavigationProperty Name="InterviewSession" Relationship="Self.FK_Interview_InterviewSession" FromRole="Interview" ToRole="InterviewSession" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Interview_Student" FromRole="Interview" ToRole="Student" />
     <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Interview" FromRole="Interview" ToRole="PanelMember" />
+    <Property Name="StatusID" Type="Int32" />
+    <NavigationProperty Name="InterviewStatu" Relationship="RecruitmentAppModel.FK_Interview_InterviewStatus" FromRole="Interview" ToRole="InterviewStatu" />
   </EntityType>
   <EntityType Name="InterviewSession">
     <Key>
@@ -41,7 +43,7 @@
     <Property Name="PanelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EmployeeID" Type="Int32" Nullable="false" />
     <Property Name="InterviewID" Type="Int32" Nullable="false" />
-    <Property Name="PannelScore" Type="Int32" />
+    <Property Name="PannelScore" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Panel_Employee" FromRole="PanelMember" ToRole="Employee" />
     <NavigationProperty Name="Interview" Relationship="Self.FK_Panel_Interview" FromRole="PanelMember" ToRole="Interview" />
     <NavigationProperty Name="TraitComments" Relationship="Self.FK_TraitComment_PanelMember" FromRole="PanelMember" ToRole="TraitComment" />
@@ -61,16 +63,6 @@
     <Property Name="StudentBio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Interviews" Relationship="Self.FK_Interview_Student" FromRole="Student" ToRole="Interview" />
     <Property Name="StudentVideo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TraitCategory">
     <Key>
@@ -171,7 +163,6 @@
     <EntitySet Name="InterviewSessions" EntityType="Self.InterviewSession" />
     <EntitySet Name="PanelMembers" EntityType="Self.PanelMember" />
     <EntitySet Name="Students" EntityType="Self.Student" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TraitCategories" EntityType="Self.TraitCategory" />
     <EntitySet Name="TraitComments" EntityType="Self.TraitComment" />
     <AssociationSet Name="FK_Panel_Employee" Association="Self.FK_Panel_Employee">
@@ -198,5 +189,30 @@
       <End Role="TraitCategory" EntitySet="TraitCategories" />
       <End Role="TraitComment" EntitySet="TraitComments" />
     </AssociationSet>
+    <EntitySet Name="InterviewStatus" EntityType="RecruitmentAppModel.InterviewStatu" />
+    <AssociationSet Name="FK_Interview_InterviewStatus" Association="RecruitmentAppModel.FK_Interview_InterviewStatus">
+      <End Role="InterviewStatu" EntitySet="InterviewStatus" />
+      <End Role="Interview" EntitySet="Interviews" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="InterviewStatu">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Interviews" Relationship="RecruitmentAppModel.FK_Interview_InterviewStatus" FromRole="InterviewStatu" ToRole="Interview" />
+  </EntityType>
+  <Association Name="FK_Interview_InterviewStatus">
+    <End Type="RecruitmentAppModel.InterviewStatu" Role="InterviewStatu" Multiplicity="0..1" />
+    <End Type="RecruitmentAppModel.Interview" Role="Interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InterviewStatu">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Interview">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

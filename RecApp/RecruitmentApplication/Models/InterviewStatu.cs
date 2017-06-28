@@ -12,27 +12,18 @@ namespace RecruitmentApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Interview
+    public partial class InterviewStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Interview()
+        public InterviewStatu()
         {
-            this.PanelMembers = new HashSet<PanelMember>();
+            this.Interviews = new HashSet<Interview>();
         }
     
-        public int InterviewID { get; set; }
-        public int StudentID { get; set; }
-        public System.DateTime InterviewDate { get; set; }
-        public Nullable<int> SessionID { get; set; }
-        public string Room { get; set; }
-        public string OverallComment { get; set; }
-        public Nullable<decimal> OverallScore { get; set; }
-        public Nullable<int> StatusID { get; set; }
+        public int StatusID { get; set; }
+        public string StatusName { get; set; }
     
-        public virtual InterviewSession InterviewSession { get; set; }
-        public virtual Student Student { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PanelMember> PanelMembers { get; set; }
-        public virtual InterviewStatu InterviewStatu { get; set; }
+        public virtual ICollection<Interview> Interviews { get; set; }
     }
 }
