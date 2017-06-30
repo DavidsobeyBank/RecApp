@@ -54,52 +54,46 @@
     </div>
 </div>
 <div class="mdl-grid">
-<div class="mdl-card mdl-shadow--4dp demo-card-large" style="width:400px">
+<div class="mdl-card mdl-shadow--4dp demo-card-square" style="width:400px">
     <div class="mdl-card__title mdl-shadow--2dp">
         <h2 class="mdl-card__title-text">Panel Members</h2>
     </div>
     <div class="">
         <div class="mdl-card__supporting-text">
             <div>
-                @for(int i = 0; i < Model.panelMembers.Count(); i++)
+                @foreach(var emp in Model.employees)
                 {
-                    @Html.DisplayFor(model => model.panelMembers.ElementAt(i).Employee.EmployeeName.ToString())<br />
+                    @Html.DisplayFor(model => emp.EmployeeName) <br />
                 }
             </div>
-        </div>
-        <div class="mdl-card__actions">
-            <input type="submit" name="startInterview" value="Start" class="mdl-button mdl-button--raised mdl-button--colored" />
         </div>
 
     </div>
 </div>
 </div>
 
-@Html.AntiForgeryToken()
-if (ViewBag.Message != null)
-{
-
 <div class="mdl-grid">
     @foreach (var category in Model.categories)
     {
-
+        string name = category.TraitName;
     <div class="mdl-card mdl-shadow--4dp demo-card-square">
         <div class="mdl-card__title mdl-shadow--2dp">
-            <h2 class="mdl-card__title-text">@category.TraitName</h2>          
+            <h2 class="mdl-card__title-text">@category.TraitName</h2>   
+                   
         </div>
         <div class="mdl-card__actions">
             <strong>Score</strong><br />
-            @Html.EditorFor(model => model.categoryScore, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1", @max = "10", @style = "width:50px" } })<br />
+            @Html.Editor(name + "Score", null , new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1", @max = "10", @style = "width:50px" } }) <br />
 
             <strong>Comment</strong><br />
 
-            @Html.TextAreaFor(model => model.categoryComment, 5, 30, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextArea(name + "Comment", null, 5, 30, new { htmlAttributes = new { @class = "form-control" } })
            
         </div>
     </div>
     }
 </div>
-<div class="mdl-card mdl-shadow--4dp demo-card-large">
+<div class="mdl-card mdl-shadow--4dp demo-card-square">
     <div class="mdl-card__title mdl-shadow--2dp">
         <h2 class="mdl-card__title-text">Overall</h2>
     </div>
@@ -116,5 +110,4 @@ if (ViewBag.Message != null)
     </div>
 </div>
     }
-}
 

@@ -57,14 +57,15 @@ namespace RecruitmentApplication.Controllers
                     startInterviewVM.session = interview.InterviewSession;
                     startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio);
                     startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
-                   
-
+                    startInterviewVM.panelMembers = new List<PanelMember>();
+                    startInterviewVM.employees = new List<Employee>();
                     //get all panelMembers for this interview
                     var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
 
                     foreach (PanelMember p in panelMembers)
                     {
                         startInterviewVM.panelMembers.Add(p);
+                        startInterviewVM.employees.Add(p.Employee);
                     }
                     startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
 
@@ -85,109 +86,79 @@ namespace RecruitmentApplication.Controllers
         {
             try
             {
-                String interviewId = Session["currentInterview"].ToString();
-                int idVal = Convert.ToInt32(interviewId);
+
+                String interviewID = ""; 
+                if(Session["CurrentInterview"] != null)
+                {
+                    interviewID = Session["currentInterview"].ToString();
+                }
+
+                int idVal = Convert.ToInt32(interviewID);
                 Interview interview = db.Interviews.Find(idVal);
 
-                if (interview.StatusID == 1)
-                {
+                //get all panelMembers for this interview
+                model.panelMembers = new List<PanelMember>();
 
-                    if (model.selectedEmployeeIDs.Count() == 0)
+                var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
+
+                foreach (PanelMember p in panelMembers)
+                {
+                    model.panelMembers.Add(p);
+                }
+
+                //add all category comments and scores to the db
+
+                interview.OverallComment = model.overallComment;
+
+                foreach (TraitCategory category in db.TraitCategories)
+                {
+                    string name = category.TraitName; 
+                    TraitComment comment = new TraitComment();
+                    string score = "" ;
+                    string commentText = "";
+
+                    if(Request[name + "Score"] != null)
                     {
-                        return View(model);
+                        score = Request[name + "Score"].ToString();
                     }
 
-                    List<int> employeeIds = new List<int>();
-                    employeeIds = model.selectedEmployeeIDs;
+                    comment.Score = Convert.ToInt32(score);
 
-                    //assign interview to panel members
-                    PanelMembersController panelMembersController = new PanelMembersController();
-
-
-                    if (!string.IsNullOrEmpty(interviewId))
+                    if (Request[name + "Comment"] != null)
                     {
-
-                        //create a panel member for each employee selected
-                        model.panel = panelMembersController.AssignInterview(interview.InterviewID, employeeIds);
-
-                        if (model.panel.Count() > 0)
-                        {
-                            //update interview status
-                            interview.StatusID = 2; //in progress
-                        }
-                        //save the updated interview //have to change multiplicity of FK_panel_interview to allow many panel members
-                        db.SaveChanges();
-
-                        populateVM(model, interview);
-                        ViewBag.Message = "Interview Started";
+                        commentText = Request[name + "Comment"].ToString();
                     }
 
+                    comment.Comment = commentText;
+
+                    comment.TraitID = category.TraitID;
+                    comment.TraitCategory = category;
+
+                    comment.PanelMember = model.panelMembers.FirstOrDefault();
+                    comment.PanelID = comment.PanelMember.PanelID;
+
+                    db.TraitComments.Add(comment);
                 }
-                else
-                {
-                    CompleteInterview(populateVM(model, interview));
-                }
+
+                //add the panel member's score to the appropriate row
+                var member = model.panelMembers.First();
+
+                member.PannelScore = model.panelScore; 
+                
+                ////change the interview status to completed 
+                //interview.StatusID = 3;
+
+                db.SaveChanges(); 
 
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
-                Console.WriteLine("Aw shuck we done messed up " + ex.Message);
+                Console.WriteLine("Aw shucks we done messed up " + ex.Message);
             }
 
 
             return View(model);
 
-        }
-
-        [HttpPost]
-        public ActionResult CompleteInterview(StartInterviewVM model)
-        {
-            try
-            {
-                String interviewId = Session["currentInterview"].ToString();
-                if (!string.IsNullOrEmpty(interviewId))
-                {
-                    int idVal = Convert.ToInt32(interviewId);
-                    Interview interview = db.Interviews.Find(idVal);
-
-                    interview.OverallScore = model.overallScore;
-                    interview.OverallComment = model.overallComment;
-
-                    int categoryCount = 0;
-                    foreach (TraitCategory category in model.categories)
-                    {
-                        TraitComment comment = new TraitComment();
-                        PanelMember panel = new PanelMember();
-
-                        //get the panel by the interview ID
-                        panel = db.PanelMembers.FirstOrDefault(p => p.InterviewID == interview.InterviewID);
-
-                        if (panel != null)
-                        {
-                            comment.PanelID = panel.PanelID;
-
-                            //every comment and score is related to a trait category
-                            comment.TraitID = category.TraitID;
-                            comment.TraitCategory = category;
-
-                            //get the comment and score for this category
-                            comment.Comment = model.categoryComments.ElementAt(categoryCount);
-                            comment.Score = model.categoryScores.ElementAt(categoryCount);
-                        }
-                        categoryCount++;
-                    }
-
-                    interview.StatusID = 3; //completed
-
-                    db.SaveChanges(); 
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("We done messed up. " + ex.Message);
-            }
-
-            return View(model);
         }
         // GET: Interviews/Create
         public ActionResult Create()

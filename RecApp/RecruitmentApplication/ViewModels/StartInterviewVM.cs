@@ -40,6 +40,9 @@ namespace RecruitmentApplication.ViewModels
         [Display(Name ="Start Interview")]
         public bool startInterview { get; set; }
 
+        [Display(Name = "Panel Member Name")]
+        public List<Employee> employees { get; set; }
+
 
 
         #endregion
@@ -51,8 +54,6 @@ namespace RecruitmentApplication.ViewModels
         public InterviewSession session { get; set; }
 
         public Interview interview { get; set; }
-
-        public List<PanelMember> panel { get; set; }
 
         public string categoryComment { get; set; }
 
