@@ -100,10 +100,12 @@ namespace RecruitmentApplication.Controllers
                 model.panelMembers = new List<PanelMember>();
 
                 var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
+                model.employees = new List<Employee>();
 
                 foreach (PanelMember p in panelMembers)
                 {
                     model.panelMembers.Add(p);
+                    model.employees.Add(p.Employee);
                 }
 
                 //add all category comments and scores to the db
@@ -143,8 +145,9 @@ namespace RecruitmentApplication.Controllers
                 //add the panel member's score to the appropriate row
                 var member = model.panelMembers.First();
 
-                member.PannelScore = model.panelScore; 
-                
+                member.PannelScore = model.panelScore;
+
+                interview.OverallScore = totalScoreCalc();
                 ////change the interview status to completed 
                 //interview.StatusID = 3;
 
@@ -157,8 +160,28 @@ namespace RecruitmentApplication.Controllers
             }
 
 
+
             return View(model);
 
+        }
+
+        public decimal totalScoreCalc(List<int> panelScores)
+        {
+            int sum = 0;
+            int overallScore = 0;
+            int count = panelScores.Count;
+
+            if (count > 0)
+            {
+                foreach (int score in panelScores)
+                {
+                    sum = sum + score;
+                }
+
+                overallScore = sum / count;
+            }
+
+            return overallScore;
         }
         // GET: Interviews/Create
         public ActionResult Create()
