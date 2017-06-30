@@ -14,7 +14,7 @@ namespace RecruitmentApplication.ViewModels
         #region Display Fields
 
         [Display(Name = "Panel Members")]
-        public IEnumerable<SelectListItem> panelMembers { get; set; }
+        public List<PanelMember> panelMembers { get; set; }
 
         [Display(Name = "Bio")]
         public string bio { get; set; }
@@ -27,6 +27,9 @@ namespace RecruitmentApplication.ViewModels
 
         [Display(Name = "Room")]
         public string roomNumber { get; set; }
+
+        [Display(Name = "Panel Score")]
+        public int panelScore { get; set; }
 
         [Display(Name = "Overall Score")]
         public decimal overallScore { get; set; }
@@ -42,8 +45,6 @@ namespace RecruitmentApplication.ViewModels
         #endregion
 
         #region Objects
-
-        public List<int> selectedEmployeeIDs { get; set; }
 
         public Student Student { get; set; }
 

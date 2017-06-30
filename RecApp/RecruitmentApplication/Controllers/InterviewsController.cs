@@ -50,33 +50,35 @@ namespace RecruitmentApplication.Controllers
             {
                 Session["currentInterview"] = interview.InterviewID.ToString();
                 //make a new startInterviewVM intance and assign to it
-                startInterviewVM = populateVM(startInterviewVM, interview);
-                
+                try
+                {
+                    startInterviewVM.interview = interview;
+                    startInterviewVM.Student = interview.Student;
+                    startInterviewVM.session = interview.InterviewSession;
+                    startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio);
+                    startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
+                   
+
+                    //get all panelMembers for this interview
+                    var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
+
+                    foreach (PanelMember p in panelMembers)
+                    {
+                        startInterviewVM.panelMembers.Add(p);
+                    }
+                    startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("messed up yo" + ex.Message);
+                }
+
             }
 
             return View(startInterviewVM);  
         }
 
-        private StartInterviewVM populateVM(StartInterviewVM startInterviewVM, Interview interview)
-        {
-            try
-            {
-                startInterviewVM.interview = interview;
-                startInterviewVM.Student = interview.Student;
-                startInterviewVM.session = interview.InterviewSession;
-                startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio);
-                startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
-
-                startInterviewVM.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", startInterviewVM.selectedEmployeeIDs);
-
-                startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("messed up yo" + ex.Message);
-            }
-            return startInterviewVM; 
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
