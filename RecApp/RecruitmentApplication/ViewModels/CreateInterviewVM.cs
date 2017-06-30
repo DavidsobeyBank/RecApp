@@ -13,6 +13,7 @@ namespace RecruitmentApplication.ViewModels
         #region Display properties
 
         [Display(Name = "Student")]
+        [Required]
         public IEnumerable<SelectListItem> students;
 
         [Display(Name = "Date")]
@@ -24,13 +25,20 @@ namespace RecruitmentApplication.ViewModels
         public string roomNumber { get; set; }
 
         [Display(Name = "Session")]
+        [Required]
         public IEnumerable<SelectListItem> sessions;
+
+        [Display(Name = "Panel Member")]
+        [Required]
+        public IEnumerable<SelectListItem> panelMembers; 
 
         #endregion
 
         public string studentID { get; set; }
 
         public string sessionID { get; set; }
+
+        public string panelMemberID { get; set; }
 
 
     }

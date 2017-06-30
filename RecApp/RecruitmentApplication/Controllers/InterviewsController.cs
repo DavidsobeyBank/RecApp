@@ -194,6 +194,7 @@ namespace RecruitmentApplication.Controllers
 
             model.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName");
             model.students = new SelectList(db.Students, "StudentID", "StudentName");
+            model.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName");
 
             return View(model);
         }
@@ -211,6 +212,9 @@ namespace RecruitmentApplication.Controllers
             {
                 string student = model.studentID;
                 string session = model.sessionID;
+                string employee = model.panelMemberID;
+                int empID = Convert.ToInt32(employee);
+                Employee emp = db.Employees.FirstOrDefault(e => e.EmployeeID == empID);
 
                 interview.StudentID = Convert.ToInt32(student);
                 interview.SessionID = Convert.ToInt32(session);
@@ -219,11 +223,26 @@ namespace RecruitmentApplication.Controllers
                 interview.OverallComment = "Interview not yet started";
                 
                 db.Interviews.Add(interview);
+
+                PanelMember member = new PanelMember();
+                member.InterviewID = interview.InterviewID;
+                member.Interview = interview;
+                if(emp != null)
+                {
+                    member.EmployeeID = emp.EmployeeID;
+                    member.Employee = emp;
+                }
+
+                db.PanelMembers.Add(member);
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            ViewBag.students = new SelectList(db.Students, "StudentID", "StudentName", model.studentID);
-            ViewBag.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName", model.sessionID);
+
+            model.students = new SelectList(db.Students, "StudentID", "StudentName", model.studentID);
+            model.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName", model.sessionID);
+            model.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", model.panelMemberID);
 
             return View(model);
         }
