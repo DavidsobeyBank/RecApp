@@ -4,8 +4,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,6 +15,7 @@
             <th class="mdl-data-table__cell--non-numeric">Date</th>
             <th>Student Name</th>
             <th>Interview Session</th>
+            <th>Interviewer</th>
             <th></th>
         </tr>
     </thead>
@@ -27,6 +26,13 @@
                 <td data-label="Date" class="mdl-data-table__cell--non-numeric left">@Html.DisplayFor(modelItem => item.InterviewDate) </td>
                 <td data-label="Student Name" class="left">@Html.DisplayFor(modelItem => item.Student.StudentName) @Html.DisplayFor(modelItem => item.Student.StudentSurname)</td>
                 <td data-label="Interview Session" class="left">@Html.DisplayFor(modelItem => item.InterviewSession.SessionName)</td>
+                <td data-label="Interviewer" class="left">
+                @foreach (var interviewer in item.PanelMembers)
+                {
+                    @interviewer.Employee.EmployeeName;
+                    <br/>
+                }
+                </td>
                 <td data-label="Continue" class="noline left" >
                     <button onclick="location.href = '/Interviews/StartInterview/'+@item.Student.StudentID;" class="mdl-button mdl-js-button mdl-button--icon noline">
                         <i class="material-icons noline">arrow_forward</i>

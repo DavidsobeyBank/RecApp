@@ -1,46 +1,40 @@
 ﻿@model IEnumerable<RecruitmentApplication.Models.Employee>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<button onclick="location.href = '/Employees/Create';" class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    <i class="material-icons">add</i>Create
+</button>
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">Employee Name</th>
+            <th>Employee Surname</th>
+            <th>Employee Email</th>
+            <th></th>
+        </tr>
+    </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-label="Name" class="mdl-data-table__cell--non-numeric left">
+                        @Html.DisplayFor(modelItem => item.EmployeeName)
+                    </td>
+                    <td data-label="Surname" class="left">
+                        @Html.DisplayFor(modelItem => item.EmployeeSurname)
+                    </td>
+                    <td data-label="Email" class="left">
+                        @Html.DisplayFor(modelItem => item.EmployeeEmail)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+                    </td>
+                </tr>
+            }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EmployeeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmployeeSurname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmployeeEmail)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeSurname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeEmail)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmployeeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeID })
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
