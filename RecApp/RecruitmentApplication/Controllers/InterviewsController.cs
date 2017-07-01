@@ -147,6 +147,7 @@ namespace RecruitmentApplication.Controllers
 
                 member.PannelScore = model.panelScore;
 
+                var panelScores = db.PanelMembers.
                 interview.OverallScore = totalScoreCalc();
                 ////change the interview status to completed 
                 //interview.StatusID = 3;
