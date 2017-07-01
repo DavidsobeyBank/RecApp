@@ -1,7 +1,7 @@
 ﻿@model RecruitmentApplication.ViewModels.StartInterviewVM
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Interview";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -53,42 +53,28 @@
             </div>
     </div>
 </div>
-<div class="mdl-grid">
-<div class="mdl-card mdl-shadow--4dp demo-card-square" style="width:400px">
-    <div class="mdl-card__title mdl-shadow--2dp">
-        <h2 class="mdl-card__title-text">Panel Members</h2>
-    </div>
-    <div class="">
-        <div class="mdl-card__supporting-text">
-            <div>
-                @foreach(var emp in Model.employees)
-                {
-                    @Html.DisplayFor(model => emp.EmployeeName) <br />
-                }
-            </div>
-        </div>
-
-    </div>
-</div>
-</div>
 
 <div class="mdl-grid">
     @foreach (var category in Model.categories)
     {
         string name = category.TraitName;
-    <div class="mdl-card mdl-shadow--4dp demo-card-square">
+        string commentFieldID = @category.TraitName + "Comment";
+
+    <div class="mdl-card mdl-shadow--4dp demo-card-square" style="height:auto">
         <div class="mdl-card__title mdl-shadow--2dp">
             <h2 class="mdl-card__title-text">@category.TraitName</h2>   
                    
         </div>
         <div class="mdl-card__actions">
-            <strong>Score</strong><br />
-            @Html.Editor(name + "Score", null , new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1", @max = "10", @style = "width:50px" } }) <br />
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.Editor(name + "Score", null , new { htmlAttributes = new { @class = "mdl-textfield__input", @required = "required", @type = "number", @step = "1", @max = "10", @style = "width:50px", @id= name } }) <br />
+            <label class="mdl-textfield__label" style="color:black" for=@category.TraitName>Score...</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" name=@commentFieldID type="text" rows="3" required="required" id=@commentFieldID></textarea>
+                <label class="mdl-textfield__label" style="color:black" for=@commentFieldID>Comment...</label>
+            </div>
 
-            <strong>Comment</strong><br />
-
-            @Html.TextArea(name + "Comment", null, 5, 30, new { htmlAttributes = new { @class = "form-control" } })
-           
         </div>
     </div>
     }
@@ -100,10 +86,11 @@
     <div class="mdl-card__actions">
         <strong>Overall Score</strong><br />    
         @Html.EditorFor(model => model.panelScore, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1", @max = "10", @style = "width:50px" } })<br />
-
+        @Html.ValidationMessageFor(model => model.panelScore, "", new { @class = "text-danger" })
         <strong>Overall Comment</strong><br />
         
         @Html.TextAreaFor(model => model.overallComment, 5, 30, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.overallComment, "", new { @class = "text-danger" })
     </div>
     <div class="mdl-card__actions">
         <input type="submit" name="completeInterview" value="Complete" class="mdl-button mdl-button--raised mdl-button--colored" />

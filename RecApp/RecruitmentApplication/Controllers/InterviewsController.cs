@@ -84,93 +84,115 @@ namespace RecruitmentApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
         {
-            try
+            if (ModelState.IsValid)
             {
-
-                String interviewID = ""; 
-                if(Session["CurrentInterview"] != null)
+                try
                 {
-                    interviewID = Session["currentInterview"].ToString();
-                }
 
-                int idVal = Convert.ToInt32(interviewID);
-                Interview interview = db.Interviews.Find(idVal);
-
-                //get all panelMembers for this interview
-                model.panelMembers = new List<PanelMember>();
-
-                var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
-                model.employees = new List<Employee>();
-
-                foreach (PanelMember p in panelMembers)
-                {
-                    model.panelMembers.Add(p);
-                    model.employees.Add(p.Employee);
-                }
-
-                //add all category comments and scores to the db
-
-                interview.OverallComment = model.overallComment;
-
-                foreach (TraitCategory category in db.TraitCategories)
-                {
-                    string name = category.TraitName; 
-                    TraitComment comment = new TraitComment();
-                    string score = "" ;
-                    string commentText = "";
-
-                    if(Request[name + "Score"] != null)
+                    String interviewID = "";
+                    if (Session["CurrentInterview"] != null)
                     {
-                        score = Request[name + "Score"].ToString();
+                        interviewID = Session["currentInterview"].ToString();
                     }
 
-                    comment.Score = Convert.ToInt32(score);
+                    int idVal = Convert.ToInt32(interviewID);
+                    Interview interview = db.Interviews.Find(idVal);
 
-                    if (Request[name + "Comment"] != null)
+                    //get all panelMembers for this interview
+                    model.panelMembers = new List<PanelMember>();
+
+                    var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
+                    model.employees = new List<Employee>();
+
+                    foreach (PanelMember p in panelMembers)
                     {
-                        commentText = Request[name + "Comment"].ToString();
+                        model.panelMembers.Add(p);
+                        model.employees.Add(p.Employee);
                     }
 
-                    comment.Comment = commentText;
+                    //add all category comments and scores to the db
 
-                    comment.TraitID = category.TraitID;
-                    comment.TraitCategory = category;
+                    interview.OverallComment = model.overallComment;
 
-                    comment.PanelMember = model.panelMembers.FirstOrDefault();
-                    comment.PanelID = comment.PanelMember.PanelID;
+                    foreach (TraitCategory category in db.TraitCategories)
+                    {
+                        string name = category.TraitName;
+                        TraitComment comment = new TraitComment();
+                        string score = "";
+                        string commentText = "";
 
-                    db.TraitComments.Add(comment);
+                        if (Request[name + "Score"] != null)
+                        {
+                            score = Request[name + "Score"].ToString();
+                        }
+
+                        comment.Score = Convert.ToInt32(score);
+
+                        if (Request[name + "Comment"] != null)
+                        {
+                            commentText = Request[name + "Comment"].ToString();
+                        }
+
+                        comment.Comment = commentText;
+
+                        comment.TraitID = category.TraitID;
+                        comment.TraitCategory = category;
+
+                        comment.PanelMember = model.panelMembers.FirstOrDefault();
+                        comment.PanelID = comment.PanelMember.PanelID;
+
+                        db.TraitComments.Add(comment);
+                    }
+
+                    //add the panel member's score to the appropriate row
+                    var member = model.panelMembers.First();
+
+                    member.PannelScore = model.panelScore;
+
+                    var panelScores = from p in db.PanelMembers
+                                      where p.InterviewID == interview.InterviewID
+                                      select p.PannelScore;
+
+                    interview.OverallScore = totalScoreCalc(panelScores);
+
+                    db.SaveChanges();
+
                 }
 
-                //add the panel member's score to the appropriate row
-                var member = model.panelMembers.First();
-
-                member.PannelScore = model.panelScore;
-
-                var panelScores = db.PanelMembers.
-                interview.OverallScore = totalScoreCalc();
-                ////change the interview status to completed 
-                //interview.StatusID = 3;
-
-                db.SaveChanges(); 
-
+                catch (NullReferenceException ex)
+                {
+                    Console.WriteLine("Aw shucks we done messed up " + ex.Message);
+                }
             }
-            catch (NullReferenceException ex)
+            else
             {
-                Console.WriteLine("Aw shucks we done messed up " + ex.Message);
+                try
+                {
+                    String interviewID = "";
+                    if (Session["CurrentInterview"] != null)
+                    {
+                        interviewID = Session["currentInterview"].ToString();
+                    }
+
+                    int idVal = Convert.ToInt32(interviewID);
+                    Interview interview = db.Interviews.Find(idVal);
+                    model.interview = interview;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Couldn't find the interview " + ex.Message);
+                }
             }
-
-
 
             return View(model);
 
         }
 
-        public decimal totalScoreCalc(List<int> panelScores)
+        public decimal totalScoreCalc(IQueryable<int> panelScores)
         {
             int sum = 0;
             int overallScore = 0;
-            int count = panelScores.Count;
+            int count = panelScores.Count();
 
             if (count > 0)
             {

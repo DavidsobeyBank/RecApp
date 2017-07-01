@@ -28,12 +28,14 @@ namespace RecruitmentApplication.ViewModels
         [Display(Name = "Room")]
         public string roomNumber { get; set; }
 
+        [Required(ErrorMessage = "Please enter an overall panel score from 1-10")]
         [Display(Name = "Panel Score")]
         public int panelScore { get; set; }
 
         [Display(Name = "Overall Score")]
         public decimal overallScore { get; set; }
 
+        [Required(ErrorMessage = "Please enter an overall comment")]
         [Display(Name = "Overall Comment")]
         public string overallComment { get; set; }
 
