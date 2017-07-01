@@ -112,7 +112,11 @@ namespace RecruitmentApplication.Controllers
 
                     //add all category comments and scores to the db
 
-                    interview.OverallComment = model.overallComment;
+
+                    if(Request["overallComment"] != null)
+                    {
+                        interview.OverallComment = Request["overallComment"].ToString();
+                    }
 
                     foreach (TraitCategory category in db.TraitCategories)
                     {
@@ -147,7 +151,11 @@ namespace RecruitmentApplication.Controllers
                     //add the panel member's score to the appropriate row
                     var member = model.panelMembers.First();
 
-                    member.PannelScore = model.panelScore;
+                    if (Request["panelScore"] != null)
+                    {
+                        string panelScore = Request["panelScore"].ToString();
+                        member.PannelScore = Convert.ToInt32(panelScore);
+                    }
 
                     var panelScores = from p in db.PanelMembers
                                       where p.InterviewID == interview.InterviewID
