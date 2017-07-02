@@ -36,28 +36,6 @@ namespace RecruitmentApplication.Controllers
             return View(student);
         }
 
-        [HttpGet]
-        public ActionResult Leaderboard()
-        {
-            //get all interviews that have been scored
-            var interviews = db.Interviews.ToList().Where(i => i.OverallScore != null);
-
-            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription");
-
-            return View(interviews);
-        }
-
-        [HttpPost]
-        public ActionResult Leaderboard(string SessionID)
-        {
-            int idVal = Convert.ToInt32(SessionID);
-
-            var interviews = db.Interviews.ToList().Where(i => i.OverallScore != null && i.SessionID == idVal);
-            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription");
-
-            return View(interviews);
-        }
-
 
 
         // GET: Students/Create

@@ -24,7 +24,7 @@
           <Property Name="SessionID" Type="int" />
           <Property Name="Room" Type="varchar" MaxLength="255" />
           <Property Name="OverallComment" Type="varchar(max)" />
-          <Property Name="OverallScore" Type="decimal" Precision="2" Scale="2" />
+          <Property Name="OverallScore" Type="decimal" Precision="4" Scale="2" />
           <Property Name="StatusID" Type="int" />
         </EntityType>
         <EntityType Name="InterviewSession">
@@ -230,7 +230,7 @@
           <Property Name="SessionID" Type="Int32" />
           <Property Name="Room" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="OverallComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OverallScore" Type="Decimal" Precision="2" Scale="2" />
+          <Property Name="OverallScore" Type="Decimal" Precision="4" Scale="2" />
           <NavigationProperty Name="InterviewSession" Relationship="Self.FK_Interview_InterviewSession" FromRole="Interview" ToRole="InterviewSession" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Interview_Student" FromRole="Interview" ToRole="Student" />
           <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Interview" FromRole="Interview" ToRole="PanelMember" />

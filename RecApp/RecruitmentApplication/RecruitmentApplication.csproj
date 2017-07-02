@@ -355,7 +355,7 @@
     <Content Include="scss\_path.scss" />
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Interviews\StartInterview.cshtml" />
-    <Content Include="Views\Students\Leaderboard.cshtml" />
+    <Content Include="Views\Interviews\Leaderboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

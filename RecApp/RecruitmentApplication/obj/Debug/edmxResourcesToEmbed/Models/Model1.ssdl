@@ -19,7 +19,7 @@
     <Property Name="SessionID" Type="int" />
     <Property Name="Room" Type="varchar" MaxLength="255" />
     <Property Name="OverallComment" Type="varchar(max)" />
-    <Property Name="OverallScore" Type="decimal" Precision="2" Scale="2" />
+    <Property Name="OverallScore" Type="decimal" Precision="4" Scale="2" />
     <Property Name="StatusID" Type="int" />
   </EntityType>
   <EntityType Name="InterviewSession">

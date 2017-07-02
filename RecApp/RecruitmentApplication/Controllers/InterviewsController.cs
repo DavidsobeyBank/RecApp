@@ -40,6 +40,16 @@ namespace RecruitmentApplication.Controllers
             return View(interview);
         }
 
+        public ActionResult Leaderboard()
+        {
+            //get all interviews that have been scored
+            var interviews = db.Interviews.ToList().OrderBy(i => i.OverallScore);
+
+            ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription");
+
+            return View(interviews);
+        }
+
         [HttpGet]
         public ActionResult StartInterview(int? id)
         {
@@ -79,6 +89,7 @@ namespace RecruitmentApplication.Controllers
 
             return View(startInterviewVM);  
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -156,6 +167,7 @@ namespace RecruitmentApplication.Controllers
                         string panelScore = Request["panelScore"].ToString();
                         member.PannelScore = Convert.ToInt32(panelScore);
                     }
+                    db.SaveChanges();
 
                     var panelScores = from p in db.PanelMembers
                                       where p.InterviewID == interview.InterviewID
@@ -165,6 +177,8 @@ namespace RecruitmentApplication.Controllers
 
                     db.SaveChanges();
 
+                    model.interview = interview;
+                    model.Student = interview.Student;
                 }
 
                 catch (NullReferenceException ex)
@@ -192,6 +206,7 @@ namespace RecruitmentApplication.Controllers
                 }
             }
 
+            model.categories = new List<TraitCategory>(db.TraitCategories);
             return View(model);
 
         }
