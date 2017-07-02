@@ -343,3 +343,4 @@ C:\Dev\RecApp\RecApp\RecruitmentApplication\bin\Microsoft.Owin.Security.Microsof
 C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.csprojResolveAssemblyReference.cache
 C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.dll
 C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.pdb
+C:\Users\Sachin Naidoo\Documents\Visual Studio 2015\Projects\RecApp\RecApp\RecruitmentApplication\bin\SimpleCrypto.dll

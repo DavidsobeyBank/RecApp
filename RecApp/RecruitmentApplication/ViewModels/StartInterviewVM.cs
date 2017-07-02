@@ -39,13 +39,8 @@ namespace RecruitmentApplication.ViewModels
         [Display(Name = "Overall Comment")]
         public string overallComment { get; set; }
 
-        [Display(Name ="Start Interview")]
-        public bool startInterview { get; set; }
-
         [Display(Name = "Panel Member Name")]
         public List<Employee> employees { get; set; }
-
-
 
         #endregion
 
@@ -57,17 +52,11 @@ namespace RecruitmentApplication.ViewModels
 
         public Interview interview { get; set; }
 
-        public string categoryComment { get; set; }
-
-        public int categoryScore { get; set; }
-
         //scoring stuff
 
-        public List<int> categoryScores { get; set; }
-
-        public List<string> categoryComments { get; set; }
-
         public List<TraitCategory> categories { get; set; }
+
+        public List<TraitComment> comments { get; set; }
 
         #endregion
 

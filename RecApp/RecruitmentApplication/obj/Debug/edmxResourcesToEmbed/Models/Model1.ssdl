@@ -8,6 +8,8 @@
     <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="EmployeeSurname" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="EmployeeEmail" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Pass" Type="nvarchar" MaxLength="255" />
+    <Property Name="Salt" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Interview">
     <Key>

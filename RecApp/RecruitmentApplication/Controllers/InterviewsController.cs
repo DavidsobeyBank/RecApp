@@ -33,11 +33,34 @@ namespace RecruitmentApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Interview interview = db.Interviews.Find(id);
+            StartInterviewVM startInterviewVM = new StartInterviewVM();
+            startInterviewVM.interview = interview;
+            startInterviewVM.Student = interview.Student;
+            startInterviewVM.session = interview.InterviewSession;
+            startInterviewVM.overallComment = interview.OverallComment;
+            startInterviewVM.bio = startInterviewVM.bioRegex(interview.Student.StudentBio);
+            startInterviewVM.dateOfBirth = startInterviewVM.dobFormat(interview.InterviewDate);
+            startInterviewVM.panelMembers = new List<PanelMember>();
+            startInterviewVM.employees = new List<Employee>();
+            //get all panelMembers for this interview
+            var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
+
+            foreach (PanelMember p in panelMembers)
+            {
+                startInterviewVM.panelMembers.Add(p);
+                startInterviewVM.employees.Add(p.Employee);
+            }
+
+            startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
+
+            //grab all comments for the panel that matches this interview ID
+            startInterviewVM.comments = new List<TraitComment>(db.TraitComments.ToList().Where(c => c.PanelMember.InterviewID == startInterviewVM.interview.InterviewID));
+
             if (interview == null)
             {
                 return HttpNotFound();
             }
-            return View(interview);
+            return View(startInterviewVM);
         }
 
         public ActionResult Leaderboard()

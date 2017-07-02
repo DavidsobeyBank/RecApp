@@ -27,6 +27,11 @@
             <label class="mdl-textfield__label" for="user">Email</label>
             <span class="mdl-textfield__error">Emails Only</span>
         </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "password", @id = "password" } })
+            <label class="mdl-textfield__label" for="user">Password</label>
+            <span class="mdl-textfield__error">Emails Only</span>
+        </div>
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

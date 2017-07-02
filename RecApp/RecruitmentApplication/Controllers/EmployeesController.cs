@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RecruitmentApplication.Models;
+using SimpleCrypto;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -35,6 +36,7 @@ namespace RecruitmentApplication.Controllers
             return View(employee);
         }
 
+
         // GET: Employees/Create
         public ActionResult Create()
         {
@@ -46,10 +48,24 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,EmployeeName,EmployeeSurname,EmployeeEmail")] Employee employee)
+        public ActionResult Create([Bind(Include = "EmployeeID,EmployeeName,EmployeeSurname,EmployeeEmail,Pass")] Employee employee)
         {
             if (ModelState.IsValid)
             {
+                //hash password
+                ICryptoService cryptoService = new PBKDF2();
+
+                //New User
+                string password = employee.Pass;
+
+                //save this salt to the database
+                string salt = cryptoService.GenerateSalt();
+
+                //save this hash to the database
+                string hashedPassword = cryptoService.Compute(password);
+                employee.Salt = salt; 
+                employee.Pass = hashedPassword;
+
                 db.Employees.Add(employee);
                 db.SaveChanges();
                 return RedirectToAction("Index");

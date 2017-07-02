@@ -13,6 +13,8 @@
           <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="EmployeeSurname" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="EmployeeEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="255" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Interview">
           <Key>
@@ -219,6 +221,8 @@
           <Property Name="EmployeeSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Employee" FromRole="Employee" ToRole="PanelMember" />
+          <Property Name="Pass" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Interview">
           <Key>
@@ -434,6 +438,8 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="RecruitmentAppModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeSurname" ColumnName="EmployeeSurname" />

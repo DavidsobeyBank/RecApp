@@ -24,6 +24,8 @@ namespace RecruitmentApplication.Models
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string EmployeeEmail { get; set; }
+        public string Pass { get; set; }
+        public string Salt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PanelMember> PanelMembers { get; set; }

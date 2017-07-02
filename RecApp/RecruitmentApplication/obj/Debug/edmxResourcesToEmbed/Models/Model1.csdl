@@ -9,6 +9,8 @@
     <Property Name="EmployeeSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="EmployeeEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="PanelMembers" Relationship="Self.FK_Panel_Employee" FromRole="Employee" ToRole="PanelMember" />
+    <Property Name="Pass" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Interview">
     <Key>
