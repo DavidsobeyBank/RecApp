@@ -344,3 +344,4 @@ C:\Dev\RecApp\RecApp\RecruitmentApplication\bin\Microsoft.Owin.Security.Twitter.
 C:\Dev\RecApp\RecApp\RecruitmentApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.dll
 C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.pdb
+C:\Dev\RecApp\RecApp\RecruitmentApplication\obj\Debug\RecruitmentApplication.csprojResolveAssemblyReference.cache

@@ -4,75 +4,90 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+        <div class="mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp demo-card-long">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Create Interview</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentName", @pattern = "[A-Z,a-z]*" } })
+                        <label class="mdl-textfield__label" for="StudentName">Name</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentSurname, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentSurname", @pattern = "[A-Z,a-z]*" } })
+                        <label class="mdl-textfield__label" for="StudentSurname">Surname</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentUniversity", @pattern = "[A-Z,a-z]*" } })
+                        <label class="mdl-textfield__label" for="StudentUniversity">University</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="mdl-card mdl-shadow--4dp demo-card-long">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">&nbsp;</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentDegree", @pattern = "[A-Z,a-z]*" } })
+                        <label class="mdl-textfield__label" for="StudentDegree">Degree</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentYearofStudy" } })
+                        <label class="mdl-textfield__label" for="StudentYearofStudy">Year of Study</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentVideo"} })
+                        <label class="mdl-textfield__label" for="StudentVideo">Video Link</label>
+                        <span class="mdl-textfield__error">Letters Only</span>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="mdl-card mdl-shadow--4dp demo-card-long">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Student Bio</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                        @Html.TextAreaFor(model => model.StudentBio, new { @class = "mdl-textfield__input", @type = "text", @id = "StudentVideo", rows = "8", style = "background: rgba(0, 0, 0, 0.03);" } )
+                </div> 
+                <div>
+                    @Html.TextBox("file", "", new { type = "file" }) <br />
 
-    <form action="#">
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentSurname, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
+                    <Label style="width: 100px;" class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                        Upload Information
+                        <input type="submit" value="" />
+                    </Label>
 
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentDOB, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentBio, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "form-control" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                    @ViewBag.Message
+
+                </div>
+                @*<Label style="width: 100px;" class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    ADD FILE
+                    <input type="file" name="file" id="file" />
+                </Label>*@
+                @*<input type="submit" value="Create" class="btn btn-default" />*@
             </div>
         </div>
-    </form>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        
+        
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 

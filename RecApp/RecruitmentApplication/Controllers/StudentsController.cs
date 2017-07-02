@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using RecruitmentApplication.Models;
 using RecruitmentApplication.ViewModels;
+using System.IO;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -49,10 +50,18 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentDOB,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student)
+        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentDOB,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/img"), fileName);
+                    file.SaveAs(path);
+                }
+                student.StudentPhoto = file.FileName;
+                student.StudentDOB = DateTime.Now.Date;
                 db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
