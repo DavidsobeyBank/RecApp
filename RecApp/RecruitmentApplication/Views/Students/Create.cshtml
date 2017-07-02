@@ -4,15 +4,33 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript" src="~/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
 @using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
         <div class="mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <div class="mdl-card mdl-shadow--4dp demo-card-long" style="overflow:visible">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">Create Interview</h2>
                 </div>
-                <div class="mdl-card__supporting-text">
+                <div class="mdl-card__supporting-text" style="overflow:visible">
+                    <label class="">Interview Date</label>
+                    <div id="datetimepicker1" class="input-group date">
+                        <input class="form-control" name="date" type="text" />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                    <script type="text/javascript">
+                        $('#datetimepicker1').datetimepicker({
+                            format: 'YYYY-MM-DD hh:mm'
+                        });
+                    </script>
                     <div class="mdl-textfield mdl-js-textfield">
                         @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentName", @pattern = "[A-Z,a-z]*" } })
                         <label class="mdl-textfield__label" for="StudentName">Name</label>
@@ -25,12 +43,6 @@
                         <span class="mdl-textfield__error">Letters Only</span>
                     </div>
                     <br />
-                    <div class="mdl-textfield mdl-js-textfield">
-                        @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentUniversity", @pattern = "[A-Z,a-z]*" } })
-                        <label class="mdl-textfield__label" for="StudentUniversity">University</label>
-                        <span class="mdl-textfield__error">Letters Only</span>
-                    </div>
-                    <br />
                 </div>
             </div>
             <div class="mdl-card mdl-shadow--4dp demo-card-long">
@@ -39,21 +51,23 @@
                 </div>
                 <div class="mdl-card__supporting-text">
                     <div class="mdl-textfield mdl-js-textfield">
-                        @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentDegree", @pattern = "[A-Z,a-z]*" } })
+                        @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentUniversity" } })
+                        <label class="mdl-textfield__label" for="StudentUniversity">University</label>
+                    </div>
+                    <br />
+                    <div class="mdl-textfield mdl-js-textfield">
+                        @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentDegree" } })
                         <label class="mdl-textfield__label" for="StudentDegree">Degree</label>
-                        <span class="mdl-textfield__error">Letters Only</span>
                     </div>
                     <br />
                     <div class="mdl-textfield mdl-js-textfield">
                         @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentYearofStudy" } })
                         <label class="mdl-textfield__label" for="StudentYearofStudy">Year of Study</label>
-                        <span class="mdl-textfield__error">Letters Only</span>
                     </div>
                     <br />
                     <div class="mdl-textfield mdl-js-textfield">
                         @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentVideo"} })
                         <label class="mdl-textfield__label" for="StudentVideo">Video Link</label>
-                        <span class="mdl-textfield__error">Letters Only</span>
                     </div>
                     <br />
                 </div>

@@ -50,21 +50,28 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentDOB,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentDOB,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                try
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/img"), fileName);
-                    file.SaveAs(path);
+                    if (file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/img"), fileName);
+                        file.SaveAs(path);
+                    }
+
+                    student.StudentDOB = Convert.ToDateTime(collection["date"].ToString());
+                    student.StudentPhoto = file.FileName;
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
                 }
-                student.StudentPhoto = file.FileName;
-                student.StudentDOB = DateTime.Now.Date;
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                catch (Exception)
+                { }                
             }
 
             return View(student);
