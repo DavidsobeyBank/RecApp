@@ -57,13 +57,16 @@
             </header>
             <nav class="demo-navigation mdl-navigation">
                 <a class="mdl-navigation__link" href="~/Home"><i class="material-icons">&#xE88A;</i>Home</a>
+                @if (Session["userLoggedIn"] != null)
+                {
                 <a id="interview" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE85D;</i>Interview</a>
                 <a id="employee" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE853;</i>Employee</a>
                 <a id="student" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE87C;</i>Student</a>
                 <a id="interview_session" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE896;</i>Interview Session</a>
                 <a id="trait" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE83A;</i>Trait</a>
                 <div class="mdl-layout-spacer"></div>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">logout</i><span class="visuallyhidden">Logout</span></a>
+                <a class="mdl-navigation__link" href="~/Views/Home/Index.cshtml"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">Log Out</i></a>
+                }
             </nav>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="interview">

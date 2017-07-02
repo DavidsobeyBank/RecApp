@@ -19,6 +19,7 @@ namespace RecruitmentApplication.Controllers
     {
         private RecruitmentAppEntities db = new RecruitmentAppEntities();
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -27,7 +28,7 @@ namespace RecruitmentApplication.Controllers
         #region Login Stuff
 
         [HttpPost]
-        public ActionResult Login()
+        public ActionResult Index(string eMail, string pass)
         {
             string email = Request["Email"].ToString();
             string password = Request["Password"].ToString();
@@ -37,20 +38,14 @@ namespace RecruitmentApplication.Controllers
             if(user != null)
             {
                 ICryptoService cryptoService = new PBKDF2();
-                
-                string enteredPassword = cryptoService.Compute(password);
 
-                //validate user
-                //compare the password (this should be true since we are rehashing the same password and using the same generated salt)
-                string storedPassword = cryptoService.Compute(user.Pass, user.Salt);
-                bool isPasswordValid = cryptoService.Compare(enteredPassword, storedPassword);
+                string hashed = cryptoService.Compute(password, user.Salt);
 
-                if(isPasswordValid)
+                if (hashed == user.Pass)
                 {
-
+                    Session["userLoggedIn"] = user.EmployeeEmail;
                     //login
                 }
-                else
             }
             
             return View();

@@ -66,9 +66,13 @@ namespace RecruitmentApplication.Controllers
                 employee.Salt = salt; 
                 employee.Pass = hashedPassword;
 
-                db.Employees.Add(employee);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Employees.FirstOrDefault(e => e.EmployeeEmail == employee.EmployeeEmail) == null)
+                {
+                    db.Employees.Add(employee);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                
             }
 
             return View(employee);

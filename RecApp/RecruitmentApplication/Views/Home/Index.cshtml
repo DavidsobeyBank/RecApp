@@ -11,7 +11,7 @@
     </div>
     <div class="mdl-card__supporting-text">
         <div class="mdl-textfield mdl-js-textfield">
-            @Html.Editor("Email", null, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "email", @id = "email"} })
+            @Html.Editor("Email", null, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "email", @id = "email" } })
             <label class="mdl-textfield__label" for="user">Email</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield">
@@ -21,9 +21,7 @@
 
     </div>
     <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect" href="~/Views/Interviews/Index.cshtml">
-            Login
-        </a>
+        <input type="submit" value="Login" class = "mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect" />
     </div>
 </div>
 
