@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RecruitmentApplication.Models.Interview>
+
+@{
+    ViewBag.Title = "Leaderboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Leaderboard</h2>
+
+@using (Html.BeginForm())
+{
+
+<div>
+    @Html.DropDownList("SessionID", null, htmlAttributes: new { @class = "form-control", @id = "sessionID" }) <br />
+
+    <input type="submit" value="Filter" class="mdl-button mdl-button--raised" />
+</div>
+
+<div class="mdl-card demo-card-large">
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Score</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td data-label="Student Name" class="left">@Html.DisplayFor(modelItem => item.Student.StudentName) @Html.DisplayFor(modelItem => item.Student.StudentSurname)</td>
+                <td data-label="Score" class="left">@Html.DisplayFor(modelItem => item.OverallScore)</td>
+                <td data-label="Details" class="noline left">
+                    <button onclick="location.href = '/Interviews/Details/'+@item.InterviewID;" class="mdl-button mdl-js-button mdl-button--icon noline">
+                        <i class="material-icons noline">arrow_forward</i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+</div>
+}
+
+
+
