@@ -31,7 +31,9 @@ namespace RecruitmentApplication.Controllers
         public ActionResult Index(string eMail, string pass)
         {
             string email = Request["Email"].ToString();
-            string password = Request["Password"].ToString();
+
+            //hardcoded
+            string password = "guest";
 
             //check if user exists and password matches
             var user = db.Employees.FirstOrDefault(e => e.EmployeeEmail == email);
