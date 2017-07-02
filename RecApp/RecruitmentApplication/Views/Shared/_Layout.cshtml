@@ -65,7 +65,11 @@
                 <a id="interview_session" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE896;</i>Interview Session</a>
                 <a id="trait" class="mdl-navigation__link" href="#"><i class="material-icons">&#xE83A;</i>Trait</a>
                 <div class="mdl-layout-spacer"></div>
+<<<<<<< HEAD
                 <a id="lg" class="mdl-navigation__link" href="~/Views/Home/Index.cshtml"></a>
+=======
+                @Html.ActionLink("Log Out", "Logout", "Home", new { htmlAttributes = new { @class = "mdl-button mdl-button--raised", @id = "logout", @style="color:black" } })
+>>>>>>> d65417661836bd185e76436cb240db5aae343ebc
                 }
             </nav>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
@@ -104,6 +108,17 @@
         </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script type="text/javascript">
+        function toggle(){
+            var x = document.getElementById('logoutSpan');
+            if (x.style.visibility == 'hidden') {
+                x.style.visibility = 'visible';
+            } else {
+                x.style.display = 'hidden';
+            }
+
+        }
+    </script>
 </body>
 </html>
 

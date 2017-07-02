@@ -31,7 +31,9 @@ namespace RecruitmentApplication.Controllers
         public ActionResult Index(string eMail, string pass)
         {
             string email = Request["Email"].ToString();
-            string password = Request["Password"].ToString();
+
+            //hardcoded
+            string password = "guest";
 
             //check if user exists and password matches
             var user = db.Employees.FirstOrDefault(e => e.EmployeeEmail == email);
@@ -44,13 +46,20 @@ namespace RecruitmentApplication.Controllers
                 if (hashed == user.Pass)
                 {
                     Session["userLoggedIn"] = user.EmployeeEmail;
-                    //login
+                    return RedirectToAction("Index", "Interviews");
+
                 }
             }
             
             return View();
         }
         #endregion
+
+        public ActionResult Logout()
+        {
+            Session["userLoggedIn"] = null;
+            return Redirect("~/Home/Index");
+        }
 
         public ActionResult About()
         {

@@ -28,9 +28,9 @@
             <span class="mdl-textfield__error">Emails Only</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "password", @id = "password" } })
-            <label class="mdl-textfield__label" for="user">Password</label>
-            <span class="mdl-textfield__error">Emails Only</span>
+            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "password", @id = "password", @required = "required" } })
+            <label class="mdl-textfield__label" for="user" >Password</label>
+            <span class="mdl-textfield__error">Please enter a password</span>
         </div>
         <br />
         <div class="form-group">
