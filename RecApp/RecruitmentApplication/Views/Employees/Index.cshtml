@@ -17,24 +17,24 @@
             <th></th>
         </tr>
     </thead>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td data-label="Name" class="mdl-data-table__cell--non-numeric left">
-                        @Html.DisplayFor(modelItem => item.EmployeeName)
-                    </td>
-                    <td data-label="Surname" class="left">
-                        @Html.DisplayFor(modelItem => item.EmployeeSurname)
-                    </td>
-                    <td data-label="Email" class="left">
-                        @Html.DisplayFor(modelItem => item.EmployeeEmail)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
-                    </td>
-                </tr>
-            }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td data-label="Name" class="mdl-data-table__cell--non-numeric left">
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td data-label="Surname" class="left">
+                @Html.DisplayFor(modelItem => item.EmployeeSurname)
+            </td>
+            <td data-label="Email" class="left">
+                @Html.DisplayFor(modelItem => item.EmployeeEmail)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+            </td>
+        </tr>
+    }
 
-        </table>
+</table>

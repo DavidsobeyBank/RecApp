@@ -51,7 +51,7 @@ namespace RecruitmentApplication.Controllers
                 startInterviewVM.employees.Add(p.Employee);
             }
 
-            startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
+            startInterviewVM.categories = db.TraitCategories.ToList();
 
             //grab all comments for the panel that matches this interview ID
             startInterviewVM.comments = new List<TraitComment>(db.TraitComments.ToList().Where(c => c.PanelMember.InterviewID == startInterviewVM.interview.InterviewID));
@@ -66,8 +66,8 @@ namespace RecruitmentApplication.Controllers
         public ActionResult Leaderboard()
         {
             //get all interviews that have been scored
-            var interviews = db.Interviews.ToList().OrderBy(i => i.OverallScore);
-
+            var interviews = db.Interviews.ToList().OrderByDescending(i => i.OverallScore);
+            //interviews.OrderBy(interviews.)
             ViewBag.SessionID = new SelectList(db.InterviewSessions, "SessionID", "SessionDescription");
 
             return View(interviews);
@@ -100,7 +100,8 @@ namespace RecruitmentApplication.Controllers
                         startInterviewVM.panelMembers.Add(p);
                         startInterviewVM.employees.Add(p.Employee);
                     }
-                    startInterviewVM.categories = new List<TraitCategory>(db.TraitCategories);
+                    startInterviewVM.categories = db.TraitCategories.ToList();
+
 
                 }
                 catch (Exception ex)
@@ -230,24 +231,27 @@ namespace RecruitmentApplication.Controllers
             }
 
             model.categories = new List<TraitCategory>(db.TraitCategories);
-            return View(model);
+
+            return RedirectToAction("Leaderboard");
 
         }
 
         public decimal totalScoreCalc(IQueryable<int> panelScores)
         {
-            int sum = 0;
             int overallScore = 0;
             int count = panelScores.Count();
-
             if (count > 0)
             {
                 foreach (int score in panelScores)
-                {
-                    sum = sum + score;
+                { 
+                    if(score != 0)
+                    { 
+                        overallScore = score;
+                        break;
+                    }
                 }
 
-                overallScore = sum / count;
+                
             }
 
             return overallScore;
@@ -259,7 +263,7 @@ namespace RecruitmentApplication.Controllers
 
             model.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName");
             model.students = new SelectList(db.Students, "StudentID", "StudentName");
-            model.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName");
+            model.EmplList = db.Employees.ToList<Employee>();
 
             return View(model);
         }
@@ -269,7 +273,7 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateInterviewVM model)
+        public ActionResult Create(CreateInterviewVM model, FormCollection collection)
         {
             Interview interview = new Interview();
 
@@ -277,28 +281,34 @@ namespace RecruitmentApplication.Controllers
             {
                 string student = model.studentID;
                 string session = model.sessionID;
-                string employee = model.panelMemberID;
-                int empID = Convert.ToInt32(employee);
-                Employee emp = db.Employees.FirstOrDefault(e => e.EmployeeID == empID);
 
                 interview.StudentID = Convert.ToInt32(student);
                 interview.SessionID = Convert.ToInt32(session);
-                interview.InterviewDate = model.interviewDate;
+                interview.InterviewDate = Convert.ToDateTime(collection["date"].ToString());
                 interview.Room = model.roomNumber;
                 interview.OverallComment = "Interview not yet started";
-                
+                List<Employee> List = db.Employees.ToList();
                 db.Interviews.Add(interview);
-
-                PanelMember member = new PanelMember();
-                member.InterviewID = interview.InterviewID;
-                member.Interview = interview;
-                if(emp != null)
+                foreach(Employee E in List)
                 {
-                    member.EmployeeID = emp.EmployeeID;
-                    member.Employee = emp;
-                }
+                    try
+                    {
+                        if(collection[E.EmployeeID.ToString()].ToString().Equals("on"));
+                        {
+                            PanelMember member = new PanelMember();
+                            member.InterviewID = interview.InterviewID;
+                            member.Interview = interview;
+                            member.EmployeeID = E.EmployeeID;
+                            Employee emp = db.Employees.FirstOrDefault(e => e.EmployeeID == E.EmployeeID);
+                            member.Employee = emp;
+                            db.PanelMembers.Add(member);
+                        }
+                    }
+                    catch(Exception)
+                    {
 
-                db.PanelMembers.Add(member);
+                    }
+                }
 
                 db.SaveChanges();
 
@@ -307,9 +317,9 @@ namespace RecruitmentApplication.Controllers
 
             model.students = new SelectList(db.Students, "StudentID", "StudentName", model.studentID);
             model.sessions = new SelectList(db.InterviewSessions, "SessionID", "SessionName", model.sessionID);
-            model.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", model.panelMemberID);
+            //model.panelMembers = new SelectList(db.Employees, "EmployeeID", "EmployeeName", model.panelMemberID);
 
-            return View(model);
+            return View(interview);
         }
 
         // GET: Interviews/Edit/5

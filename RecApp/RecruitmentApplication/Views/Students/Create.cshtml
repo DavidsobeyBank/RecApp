@@ -7,89 +7,69 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Student</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentSurname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentSurname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentSurname, "", new { @class = "text-danger" })
-            </div>
+    <form action="#">
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentDOB, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentDOB, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentDOB, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentSurname, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
+        <br />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentUniversity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentUniversity, "", new { @class = "text-danger" })
-            </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentDOB, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentDegree, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentDegree, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentYearofStudy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentYearofStudy, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentPhoto, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentBio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentBio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentBio, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentVideo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StudentVideo, "", new { @class = "text-danger" })
-            </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentBio, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
         </div>
-
+        <br />
+        <div class="mdl-textfield mdl-js-textfield">
+            @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "form-control" } })
+            <label class="mdl-textfield__label" for="user">Name</label>
+            <span class="mdl-textfield__error">Letters Only</span>
+        </div>
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-    </div>
+    </form>
 }
 
 <div>

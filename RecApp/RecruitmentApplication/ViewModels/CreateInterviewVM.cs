@@ -13,33 +13,24 @@ namespace RecruitmentApplication.ViewModels
         #region Display properties
 
         [Display(Name = "Student")]
-        [Required]
         public IEnumerable<SelectListItem> students;
 
         [Display(Name = "Date")]
-        [Required(ErrorMessage = "Please select a date")]
         public DateTime interviewDate { get; set; }
 
         [Display(Name = "Room")]
-        [Required(ErrorMessage = "Pelase enter a room number")]
         public string roomNumber { get; set; }
 
         [Display(Name = "Session")]
-        [Required]
         public IEnumerable<SelectListItem> sessions;
 
-        [Display(Name = "Panel Member")]
-        [Required]
-        public IEnumerable<SelectListItem> panelMembers; 
+        public List<Employee> EmplList { get; set; }
 
         #endregion
 
         public string studentID { get; set; }
 
         public string sessionID { get; set; }
-
-        public string panelMemberID { get; set; }
-
 
     }
 }

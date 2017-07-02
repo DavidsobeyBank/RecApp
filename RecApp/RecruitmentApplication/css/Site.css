@@ -347,3 +347,16 @@ h5, h6 {
 .left{
     text-align:left !important;
 }
+.demo-card-long.mdl-card {
+    width: 405px;
+    height: 405px;
+    float: left;
+    margin: 1rem;
+    position: relative;
+}
+label {
+    margin-bottom: 0 !important;
+}
+a:hover, a:focus {
+    text-decoration: none !important;
+}
