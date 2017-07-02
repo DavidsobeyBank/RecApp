@@ -4,65 +4,93 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="mdl-card demo-card-square">
+    <script type="text/javascript" src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
-        <div class="form-horizontal">
-            <h4>CreateInterviewVM</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.studentID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.studentID, Model.students, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.studentID, "", new { @class = "text-danger" })
-                </div>
+    <div class="mdl-grid">
+        <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Create Interview</h2>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.sessionID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.sessionID, Model.sessions, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sessionID, "", new { @class = "text-danger" })
+            <div class="mdl-card__supporting-text">
+                <h4 class="mdl-card__subtitle-text">Student Name</h4>
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.DropDownListFor(model => model.studentID, Model.students, new { @class = "form-control" })
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.panelMemberID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.panelMemberID, Model.panelMembers, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.panelMemberID, "", new { @class = "text-danger" })
+                <h4 class="mdl-card__subtitle-text">Interview Session</h4>
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.DropDownListFor(model => model.sessionID, Model.sessions, new { @class = "form-control" } )
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.interviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.interviewDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    @Html.ValidationMessageFor(model => model.interviewDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.roomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.roomNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.roomNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="mdl-button mdl-button--raised" />
+                <h4 class="mdl-card__subtitle-text">Room</h4>
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.roomNumber, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "room"} })
+                    <label class="mdl-textfield__label" for="room">Room Name</label>
                 </div>
             </div>
         </div>
+        <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <label>Select Date: </label>
+            <div id="datetimepicker1" class="input-group date">
+                <input class="form-control" name="date" type="text"/>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+            <script type="text/javascript">
+                $('#datetimepicker1').datetimepicker();
+            </script>
+        </div>
+        <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Choose Employees</h2>
+            </div>
+            <div class="form-group">
+                <table style="margin: 20px 20%;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="table-header">
+                                    <input type="checkbox" id="table-header" class="mdl-checkbox__input" />
+                                </label>
+                            </th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                        </tr>
+                    </thead>
+                    @for(int i = 0; i < Model.EmplList.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="row[@i]">
+                                    <input type="checkbox" name="@Model.EmplList[i].EmployeeID" id="row[@i]" class="mdl-checkbox__input" />
+                                </label>
+                            </td>
+                            <td data-label="name" class="left">
+                                @Html.DisplayFor(modelItem => Model.EmplList[i].EmployeeName)
+                            </td>
+                            <td data-label="surname" class="left">
+                                @Html.DisplayFor(modelItem => Model.EmplList[i].EmployeeSurname)
+                            </td>
+                        </tr>
+                    }
 
+                </table>
+
+            </div>
+        </div>
     </div>
-}
+    <div class="">
+        <input type="submit" value="Create" class="mdl-button mdl-button--raised" />
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}
+            
