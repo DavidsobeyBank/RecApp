@@ -363,3 +363,6 @@ a:hover, a:focus {
 label.input-custom-file input[type=file] {
     display: none;
 }
+.mdl-card__supporting-text{
+    font-size: 1.1rem;
+}
