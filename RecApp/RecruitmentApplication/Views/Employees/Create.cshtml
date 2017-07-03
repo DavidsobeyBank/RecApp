@@ -10,37 +10,44 @@
     @Html.AntiForgeryToken()
 
     <form action="#">
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
-            <label class="mdl-textfield__label" for="user">Name</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br/>
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.EmployeeSurname, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
-            <label class="mdl-textfield__label" for="user">Surname</label>
-            <span class="mdl-textfield__error">Letters Only</span>
-        </div>
-        <br />
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.EmployeeEmail, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "email", @id = "name"} })
-            <label class="mdl-textfield__label" for="user">Email</label>
-            <span class="mdl-textfield__error">Emails Only</span>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "password", @id = "password", @required = "required" } })
-            <label class="mdl-textfield__label" for="user" >Password</label>
-            <span class="mdl-textfield__error">Please enter a password</span>
-        </div>
-        <br />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" />
+        <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Employee</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
+                    <label class="mdl-textfield__label" for="user">Name</label>
+                    <span class="mdl-textfield__error">Letters Only</span>
+                </div>
+                <br />
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.EmployeeSurname, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
+                    <label class="mdl-textfield__label" for="user">Surname</label>
+                    <span class="mdl-textfield__error">Letters Only</span>
+                </div>
+                <br />
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.EmployeeEmail, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "email", @id = "name" } })
+                    <label class="mdl-textfield__label" for="user">Email</label>
+                    <span class="mdl-textfield__error">Emails Only</span>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "password", @id = "password", @required = "required" } })
+                    <label class="mdl-textfield__label" for="user">Password</label>
+                    <span class="mdl-textfield__error">Please enter a password</span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
             </div>
         </div>
     </form>
 }
 <br/>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
