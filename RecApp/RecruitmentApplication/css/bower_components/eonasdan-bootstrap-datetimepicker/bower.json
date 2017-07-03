@@ -27,18 +27,8 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "bower_componen",
     "test",
     "tests"
-  ],
-  "_release": "4.17.45",
-  "_resolution": {
-    "type": "version",
-    "tag": "v4.17.45",
-    "commit": "bf88bcc394223787a3a874f572c2f231742e174e"
-  },
-  "_source": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
-  "_target": "v4.17.45",
-  "_originalSource": "eonasdan-bootstrap-datetimepicker",
-  "_direct": true
+  ]
 }
