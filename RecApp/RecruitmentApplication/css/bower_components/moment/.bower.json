@@ -5,7 +5,7 @@
   "ignore": [
     "**/.*",
     "benchmarks",
-    "bower_components",
+    "bower_componen",
     "meteor",
     "node_modules",
     "scripts",
@@ -21,5 +21,16 @@
     "package.json",
     "ISSUE_TEMPLATE.md",
     "typing-tests"
-  ]
+  ],
+  "homepage": "https://github.com/moment/moment",
+  "version": "2.18.1",
+  "_release": "2.18.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.18.1",
+    "commit": "0af7d4f5f25f911c2eaab2a7ccb534c17e65c536"
+  },
+  "_source": "https://github.com/moment/moment.git",
+  "_target": ">=2.10.5",
+  "_originalSource": "moment"
 }
