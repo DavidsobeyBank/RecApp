@@ -18,19 +18,9 @@
         <div class="mdl-grid">
             <div class="mdl-card mdl-shadow--4dp demo-card-long" style="overflow:visible">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Create Interview</h2>
+                    <h2 class="mdl-card__title-text">Create Student</h2>
                 </div>
                 <div class="mdl-card__supporting-text" style="overflow:visible">
-                    <label class="">Interview Date</label>
-                    <div id="datetimepicker1" class="input-group date">
-                        <input class="form-control" name="date" type="text" />
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                    <script type="text/javascript">
-                        $('#datetimepicker1').datetimepicker({
-                            format: 'YYYY-MM-DD hh:mm'
-                        });
-                    </script>
                     <div class="mdl-textfield mdl-js-textfield">
                         @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "StudentName", @pattern = "[A-Z,a-z]*" } })
                         <label class="mdl-textfield__label" for="StudentName">Name</label>

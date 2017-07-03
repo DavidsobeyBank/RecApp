@@ -53,7 +53,7 @@ namespace RecruitmentApplication.Controllers
             
             return View();
         }
-        #endregion
+
 
         public ActionResult Logout()
         {
@@ -61,6 +61,7 @@ namespace RecruitmentApplication.Controllers
             return Redirect("~/Home/Index");
         }
 
+        #endregion
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

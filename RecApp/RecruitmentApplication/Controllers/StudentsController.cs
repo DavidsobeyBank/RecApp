@@ -37,8 +37,6 @@ namespace RecruitmentApplication.Controllers
             return View(student);
         }
 
-
-
         // GET: Students/Create
         public ActionResult Create()
         {
@@ -50,7 +48,7 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentDOB,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file, FormCollection collection)
+        public ActionResult Create([Bind(Include = "StudentID,StudentName,StudentSurname,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
@@ -63,15 +61,17 @@ namespace RecruitmentApplication.Controllers
                         file.SaveAs(path);
                     }
 
-                    student.StudentDOB = Convert.ToDateTime(collection["date"].ToString());
+                    //student.StudentDOB = Convert.ToDateTime(collection["date"].ToString());
                     student.StudentPhoto = file.FileName;
                     db.Students.Add(student);
                     db.SaveChanges();
                     return RedirectToAction("Index");
 
                 }
-                catch (Exception)
-                { }                
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error creating the student " + ex.Message);
+                }                
             }
 
             return View(student);
