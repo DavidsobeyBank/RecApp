@@ -108,6 +108,7 @@ namespace RecruitmentApplication.Controllers
                     file.SaveAs(path);
                 }
                 student.StudentPhoto = file.FileName;
+                student.StudentDOB = Convert.ToDateTime("1990-06-04 00:00:00.000");
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
