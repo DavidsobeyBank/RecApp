@@ -61,7 +61,7 @@ namespace RecruitmentApplication.Controllers
                         file.SaveAs(path);
                     }
 
-                    //student.StudentDOB = Convert.ToDateTime(collection["date"].ToString());
+                    student.StudentDOB = Convert.ToDateTime("1990-06-04 00:00:00.000");
                     student.StudentPhoto = file.FileName;
                     db.Students.Add(student);
                     db.SaveChanges();
