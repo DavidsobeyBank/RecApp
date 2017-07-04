@@ -60,7 +60,11 @@ namespace RecruitmentApplication.Controllers
                         var path = Path.Combine(Server.MapPath("~/img"), fileName);
                         file.SaveAs(path);
                     }
-
+                    if (student.StudentVideo == null)
+                    {
+                        student.StudentVideo = "https://www.youtube.com/watch?v=r6Q2Vr1JUGo";
+                    }
+                            
                     student.StudentDOB = Convert.ToDateTime("1990-06-04 00:00:00.000");
                     student.StudentPhoto = file.FileName;
                     db.Students.Add(student);
@@ -97,17 +101,26 @@ namespace RecruitmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentID,StudentName,StudentSurname,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentBio,StudentVideo")] Student student, HttpPostedFileBase file, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "StudentID,StudentName,StudentSurname,StudentUniversity,StudentDegree,StudentYearofStudy,StudentPhoto,StudentVideo")] Student student, HttpPostedFileBase file, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                if (file != null)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/img"), fileName);
-                    file.SaveAs(path);
+                    if (file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/img"), fileName);
+                        file.SaveAs(path);
+                        student.StudentPhoto = file.FileName;
+                    }
                 }
-                student.StudentPhoto = file.FileName;
+
+                if(Request["studentBio"] != null)
+                {
+                    student.StudentBio = Request["studentBio"].ToString(); 
+                }
+
                 student.StudentDOB = Convert.ToDateTime("1990-06-04 00:00:00.000");
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();

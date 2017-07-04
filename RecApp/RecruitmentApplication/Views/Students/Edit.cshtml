@@ -10,7 +10,7 @@
 
     <div class="mdl-grid">
 
-    <div class="mdl-card mdl-shadow--4dp demo-card-long" style="height:auto">
+    <div class="mdl-card mdl-shadow--4dp demo-card-square">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Student</h2>
         </div>
@@ -23,55 +23,71 @@
                 <span class="mdl-textfield__error">Letters Only</span>
             </div>
 
-
             <div class="mdl-textfield mdl-js-textfield">
                 @Html.EditorFor(model => model.StudentSurname, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
                 <label class="mdl-textfield__label" for="user">Surname</label>
                 <span class="mdl-textfield__error">Letters Only</span>
             </div>
-
-            <div class="mdl-textfield mdl-js-textfield">
-                @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
-                <label class="mdl-textfield__label" for="user">University</label>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield">
-                @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name" } })
-                <label class="mdl-textfield__label" for="user">Degree</label>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield">
-                @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name"} })
-                <label class="mdl-textfield__label" for="user">Years of Study</label>
-            </div>
         </div>
-            </div>
-            <div class="mdl-card mdl-shadow--4dp demo-card-long">
-                <div class="mdl-card__supporting-text">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @readonly = "true" } })
-                        <label class="mdl-textfield__label" for="user">Photo</label>
-                        @Html.TextBox("file", "", new { type = "file" }) <br />
-                    </div>
-
-                    <div class="mdl-textfield mdl-js-textfield">
-                        @Html.TextAreaFor(model => model.StudentBio, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "studentBio", rows = "8", style = "background: rgba(0, 0, 0, 0.03);" } })
-                        <label class="mdl-textfield__label" for="user">Bio</label>
-                    </div>
-
-                    <div class="mdl-textfield mdl-js-textfield">
-                        @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name" } })
-                        <label class="mdl-textfield__label" for="user">Video</label>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Save" class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" />
-                        </div>
-                    </div>
-                    </div>
+   </div>
+    <div class="mdl-card mdl-shadow--4dp demo-card-long">
+            <div class="">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div>
+                    <img class="demo-card-image img" src="/Img/@Html.DisplayFor(model => model.StudentPhoto)" />
                 </div>
             </div>
+            <div class="mdl-card__supporting-text">
+            <div class="mdl-textfield mdl-js-textfield">
+                @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @readonly = "true" } })
+                <label class="mdl-textfield__label" for="user">Photo</label>
+                @Html.TextBox("file", "", new { type = "file" }) <br />
+            </div>
+        </div>
+        </div>
+        <div class="mdl-card mdl-shadow--4dp demo-card-square">
+            <div class="">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions">
+                    <iframe width="220" height="200" src="@Html.DisplayFor(model => model.StudentVideo)" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+                @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name" } })
+                <label class="mdl-textfield__label" for="user">Video</label>
+            </div>
+        </div>
+    <div class="mdl-card mdl-shadow--4dp demo-card-long" style="height:auto">
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.StudentUniversity, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
+                    <label class="mdl-textfield__label" for="user">University</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.StudentDegree, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name" } })
+                    <label class="mdl-textfield__label" for="user">Degree</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                    @Html.EditorFor(model => model.StudentYearofStudy, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name" } })
+                    <label class="mdl-textfield__label" for="user">Years of Study</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" name="studentBio" type="text" rows="5" id="studentBio"></textarea>
+                    <label class="mdl-textfield__label" for="user">Bio</label>
+                </div>
+                <div class="mdl-card__actions">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
 
 }
 
