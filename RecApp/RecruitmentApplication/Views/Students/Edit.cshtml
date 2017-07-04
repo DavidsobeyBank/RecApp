@@ -44,25 +44,24 @@
             </div>
 
             <div class="mdl-textfield mdl-js-textfield">
-                @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*" } })
+                @Html.EditorFor(model => model.StudentPhoto, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name", @pattern = "[A-Z,a-z]*", @readonly = "true" } })
                 <label class="mdl-textfield__label" for="user">Photo</label>
-                <span class="mdl-textfield__error">Letters Only</span>
+                @Html.TextBox("file", "", new { type = "file" }) <br />
             </div>
 
             <div class="mdl-textfield mdl-js-textfield">
-                @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name"} })
+                @Html.TextAreaFor(model => model.StudentBio, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "studentBio", rows = "8", style = "background: rgba(0, 0, 0, 0.03);" } })
                 <label class="mdl-textfield__label" for="user">Bio</label>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield">
                 @Html.EditorFor(model => model.StudentVideo, new { htmlAttributes = new { @class = "mdl-textfield__input", @type = "text", @id = "name"} })
                 <label class="mdl-textfield__label" for="user">Video</label>
-                <span class="mdl-textfield__error">Letters Only</span>
             </div>
             <br />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" />
+                    <input type="submit" value="Save" class="input-custom-file mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" />
                 </div>
             </div>
         </div>
