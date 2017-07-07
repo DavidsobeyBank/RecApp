@@ -38,11 +38,12 @@
             <strong>Year of Studies:</strong>
             @Html.DisplayFor(model => model.Student.StudentYearofStudy)<br/>
         </div>
-    </div><div class="mdl-card mdl-shadow--4dp demo-card-square">
+    </div>
+    <div class="mdl-card mdl-shadow--4dp demo-card-square">
     <div class="mdl-card__title mdl-shadow--2dp">
         <h2 class="mdl-card__title-text">Details</h2>
     </div>
-    <div class="mdl-card__supporting-text ">
+    <div class="mdl-card__supporting-text" style="overflow:auto">
         <strong>Student Bio:</strong> <br>
         @Html.DisplayFor(model => model.Student.StudentBio)<br />
     </div>
@@ -60,26 +61,6 @@
     </div>
 </div>
 <div class="mdl-grid">
-
-    <div class="mdl-card mdl-shadow--4dp demo-card-square" style="height:auto">
-        <div class="mdl-card__title mdl-shadow--2dp">
-            <h2 class="mdl-card__title-text">Overall Student Score</h2>
-        </div>
-        <div class="mdl-card__actions">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                @Html.Editor("panelScore", null, new { htmlAttributes = new { @class = "mdl-textfield__input", @required = "required", @type = "number", @step = "1", @max = "10", @style = "width:50px", @id = "panelScore" } }) <br />
-                <label class="mdl-textfield__label" style="color:black" for="panelScore">Overall Score</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <textarea class="mdl-textfield__input" name="overallComment" type="text" rows="3" required="required" id="overallComment"></textarea>
-                <label class="mdl-textfield__label" style="color:black" for="overallComment">Overall Comment</label>
-            </div>
-        </div>
-        <div class="mdl-card__actions">
-            <input type="submit" name="completeInterview" value="Complete" class="mdl-button mdl-button--raised mdl-button--colored" />
-        </div>
-    </div>
-
     @foreach (var category in Model.categories)
     {
         string name = category.TraitName;
@@ -103,6 +84,25 @@
             </div>
         </div>
     }
+
+    <div class="mdl-card mdl-shadow--4dp demo-card-square" style="height:auto">
+        <div class="mdl-card__title mdl-shadow--2dp">
+            <h2 class="mdl-card__title-text">Overall Student Score</h2>
+        </div>
+        <div class="mdl-card__actions">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.Editor("panelScore", null, new { htmlAttributes = new { @class = "mdl-textfield__input", @required = "required", @type = "number", @step = "1", @max = "10", @style = "width:50px", @id = "panelScore" } }) <br />
+                <label class="mdl-textfield__label" style="color:black" for="panelScore">Overall Score</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" name="overallComment" type="text" rows="3" required="required" id="overallComment"></textarea>
+                <label class="mdl-textfield__label" style="color:black" for="overallComment">Overall Comment</label>
+            </div>
+        </div>
+        <div class="mdl-card__actions">
+            <input type="submit" name="completeInterview" value="Complete" class="mdl-button mdl-button--raised mdl-button--colored" />
+        </div>
+    </div>
 </div>
 }
 
