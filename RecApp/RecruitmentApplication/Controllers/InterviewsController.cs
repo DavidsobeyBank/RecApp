@@ -119,6 +119,10 @@ namespace RecruitmentApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartInterview(StartInterviewVM model)
         {
+            if(Session["userLoggedIn"] == null)
+            {    
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -139,16 +143,25 @@ namespace RecruitmentApplication.Controllers
                     var panelMembers = db.PanelMembers.ToList().Where(p => p.InterviewID == interview.InterviewID);
                     model.employees = new List<Employee>();
 
+
                     foreach (PanelMember p in panelMembers)
                     {
                         model.panelMembers.Add(p);
                         model.employees.Add(p.Employee);
                     }
 
-                    //add all category comments and scores to the db
 
+                    //get the current panel member that is scoring this interview from the logged in user session. 
+                    string loggedInUser = Session["userLoggedIn"].ToString(); //email address
 
-                    if(Request["overallComment"] != null)
+                    if(panelMembers.FirstOrDefault(p => p.Employee.EmployeeEmail == loggedInUser) == null)
+                    {
+                        ViewBag.message("You are not a panel member for this interview");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    //we need to construct an overall comment from all the panel members' overall comments. Currently the overall comment gets replaced
+                    if (Request["overallComment"] != null)
                     {
                         interview.OverallComment = Request["overallComment"].ToString();
                     }
@@ -209,6 +222,7 @@ namespace RecruitmentApplication.Controllers
                 {
                     Console.WriteLine("Aw shucks we done messed up " + ex.Message);
                 }
+                
             }
             else
             {

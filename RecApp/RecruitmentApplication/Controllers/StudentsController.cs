@@ -110,6 +110,7 @@ namespace RecruitmentApplication.Controllers
                     if (file.ContentLength > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
+                        //need to check file size
                         var path = Path.Combine(Server.MapPath("~/img"), fileName);
                         file.SaveAs(path);
                         student.StudentPhoto = file.FileName;
@@ -124,7 +125,7 @@ namespace RecruitmentApplication.Controllers
                 student.StudentDOB = Convert.ToDateTime("1990-06-04 00:00:00.000");
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Students");
             }
             return View(student);
         }

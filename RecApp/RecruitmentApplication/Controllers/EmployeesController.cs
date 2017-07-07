@@ -55,15 +55,11 @@ namespace RecruitmentApplication.Controllers
                 //hash password
                 ICryptoService cryptoService = new PBKDF2();
 
-                //New User
-                //hardcoded
-                string password = "guest";
-
                 //save this salt to the database
                 string salt = cryptoService.GenerateSalt();
 
                 //save this hash to the database
-                string hashedPassword = cryptoService.Compute(password);
+                string hashedPassword = cryptoService.Compute(employee.Pass);
                 employee.Salt = salt; 
                 employee.Pass = hashedPassword;
 
