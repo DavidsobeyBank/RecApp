@@ -180,6 +180,7 @@
     <Compile Include="Controllers\InterviewsController.cs" />
     <Compile Include="Controllers\InterviewSessionsController.cs" />
     <Compile Include="Controllers\PanelMembersController.cs" />
+    <Compile Include="Controllers\SharedFunctionsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TraitCategoriesController.cs" />
     <Compile Include="Controllers\TraitCommentsController.cs" />
@@ -1103,6 +1104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\SharedFunctions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
