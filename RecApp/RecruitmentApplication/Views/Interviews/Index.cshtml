@@ -16,6 +16,7 @@
             <th>Student Name</th>
             <th>Interview Session</th>
             <th>Interviewer</th>
+            <th>Room</th>
             <th></th>
         </tr>
     </thead>
@@ -33,6 +34,7 @@
                     <br/>
                 }
                 </td>
+                <td data-label="Room" class="left">@Html.DisplayFor(modelItem => item.Room)</td>
                 <td data-label="Continue" class="noline left" >
                     <button onclick="location.href = '/Interviews/StartInterview/'+@item.InterviewID;" class="mdl-button mdl-js-button mdl-button--icon noline">
                         <i class="material-icons noline">arrow_forward</i>
