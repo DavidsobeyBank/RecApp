@@ -1,5 +1,5 @@
 packages/*
 RecApp/packages/*
-
+RecApp/RecruitmentApplication/Web.config
 RecApp/RecruitmentApplication/obj/*
 RecApp/RecruitmentApplication/bin/*
