@@ -58,6 +58,9 @@
     {
         //get the comment for this category for this interview
         var comment = category.TraitComments.FirstOrDefault(c => c.PanelMember.InterviewID == Model.interview.InterviewID);
+        if (comment != null)
+        {
+
 
         <div class="mdl-card mdl-shadow--4dp demo-card-square" style="height:auto">
             <div class="mdl-card__title mdl-shadow--2dp">
@@ -74,11 +77,15 @@
                 </div>
             </div>
         </div>
+        }
     }
 </div>
 
     string overallScore = Model.overallScore.ToString();
     string overallComment = Model.overallComment;
+    if (overallScore != null)
+    {
+
 
 <div class="mdl-grid">
     <div class="mdl-card mdl-shadow--4dp demo-card-square" style="height:auto">
@@ -98,6 +105,7 @@
         </div>
     </div>
 </div>
+    }
 <p>
     @Html.ActionLink("Back to Leaderboard", "Leaderboard")
 </p>

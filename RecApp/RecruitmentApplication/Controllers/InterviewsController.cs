@@ -156,7 +156,7 @@ namespace RecruitmentApplication.Controllers
 
                     if(panelMembers.FirstOrDefault(p => p.Employee.EmployeeEmail == loggedInUser) == null)
                     {
-                        ViewBag.message("You are not a panel member for this interview");
+                       
                         return RedirectToAction("Index", "Home");
                     }
 
