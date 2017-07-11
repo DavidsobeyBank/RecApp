@@ -154,11 +154,11 @@ namespace RecruitmentApplication.Controllers
                     //get the current panel member that is scoring this interview from the logged in user session. 
                     string loggedInUser = Session["userLoggedIn"].ToString(); //email address
 
-                    if(panelMembers.FirstOrDefault(p => p.Employee.EmployeeEmail == loggedInUser) == null)
-                    {
+                    //if(panelMembers.FirstOrDefault(p => p.Employee.EmployeeEmail == loggedInUser) == null)
+                    //{
                        
-                        return RedirectToAction("Index", "Home");
-                    }
+                    //    return RedirectToAction("Index", "Home");
+                    //}
 
                     //we need to construct an overall comment from all the panel members' overall comments. Currently the overall comment gets replaced
                     if (Request["overallComment"] != null)
@@ -180,9 +180,9 @@ namespace RecruitmentApplication.Controllers
 
                         comment.Score = Convert.ToInt32(score);
 
-                        if (Request[name + "Comment"] != null)
+                        if (Request["commentFieldID"] != null)
                         {
-                            commentText = Request[name + "Comment"].ToString();
+                            commentText = Request["commentFieldID"].ToString();
                         }
 
                         comment.Comment = commentText;
