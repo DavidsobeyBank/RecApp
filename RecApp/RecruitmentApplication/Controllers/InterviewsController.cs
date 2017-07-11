@@ -180,9 +180,9 @@ namespace RecruitmentApplication.Controllers
 
                         comment.Score = Convert.ToInt32(score);
 
-                        if (Request["commentFieldID"] != null)
+                        if (Request[name + "Comment"] != null)
                         {
-                            commentText = Request["commentFieldID"].ToString();
+                            commentText = Request[name + "Comment"].ToString();
                         }
 
                         comment.Comment = commentText;
