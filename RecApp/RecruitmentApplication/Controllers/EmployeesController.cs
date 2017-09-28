@@ -59,6 +59,10 @@ namespace RecruitmentApplication.Controllers
                 string salt = cryptoService.GenerateSalt();
 
                 //save this hash to the database
+                if(string.IsNullOrEmpty(employee.Pass))
+                {
+                    employee.Pass = "password"; 
+                }
                 string hashedPassword = cryptoService.Compute(employee.Pass);
                 employee.Salt = salt; 
                 employee.Pass = hashedPassword;
