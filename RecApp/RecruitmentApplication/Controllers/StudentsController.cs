@@ -31,10 +31,6 @@ namespace RecruitmentApplication.Controllers
             }
             Student student = db.Students.Find(id);
 
-            //get the number of characters in the bio
-            int characterCount = student.StudentBio.Length;
-            student.StudentBio.Split('.'); 
-
             if (student == null)
             {
                 return HttpNotFound();
