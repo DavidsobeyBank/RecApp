@@ -48,7 +48,7 @@ namespace RecruitmentApplication.Controllers
                 if (hashed == user.Pass)
                 {
                     Session["userLoggedIn"] = user.EmployeeEmail;
-                    return RedirectToAction("Index", "Interviews");
+                    return RedirectToAction("Index", "Students");
 
                 }
             }

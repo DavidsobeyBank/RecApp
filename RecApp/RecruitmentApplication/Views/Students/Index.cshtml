@@ -4,17 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<button onclick="location.href = '/Students/Create';" class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-    <i class="material-icons">add</i>Create
+<button style="width:auto" onclick="location.href = '/Students/Create';" class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    New Student
 </button>
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
         <tr>
-            <th class="mdl-data-table__cell--non-numeric">Name</th>
-            <th>Surname</th>
-            <th>University</th>
-            <th>Degree</th>
-            <th></th>
+            <th class="mdl-data-table__cell--non-numeric" style="text-align:center">Name</th>
+            <th style="text-align:center">Surname</th>
+            <th style="text-align:center">University</th>
+            <th style="text-align:center">Degree</th>
+            <th style="text-align:center">Actions</th>
+            <th style="text-align:center"></th>
         </tr>
     </thead>
     @foreach (var item in Model)
@@ -33,8 +34,10 @@
                 @Html.DisplayFor(modelItem => item.StudentDegree)
             </td>
             <td>
+                @Html.ActionLink("View", "Details", new { id = item.StudentID }, new { @class = "mdl-button mdl-button--raised mdl-js-ripple-effect" })
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.StudentID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.StudentID })
             </td>
         </tr>

@@ -195,6 +195,9 @@ html, body {
 .demo-card-image {
     width: 220px;
     height: 200px;
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
 }
 
 .img {
